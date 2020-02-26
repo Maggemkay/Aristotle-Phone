@@ -19,18 +19,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+
+            <EditText
                 android:id="@+id/textView_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/username"
+                android:hint="@string/username"
+                android:text="jon@doe.com"
                 android:textSize="24sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/textView_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/password"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:text="abc123"
                 android:textSize="24sp" />
 
             <Button
