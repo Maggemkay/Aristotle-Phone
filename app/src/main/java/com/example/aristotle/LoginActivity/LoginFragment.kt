@@ -10,13 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import com.example.aristotle.APIHandler
 import com.example.aristotle.MainActivity.MainActivity
 
 import com.example.aristotle.R
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
@@ -41,23 +39,23 @@ class LoginFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.button_login)
 
         button.setOnClickListener {
-            val username = view.findViewById<EditText>(R.id.textView_username).text.toString()
+            val email = view.findViewById<EditText>(R.id.textView_email).text.toString()
             val password = view.findViewById<EditText>(R.id.textView_password).text.toString()
 
             Thread {
                 runBlocking {
-                    APIHandler.login(username, password) {
+                    APIHandler.login(email, password) {
                         val didLogin = it
 
                         activity?.runOnUiThread {
                             if (didLogin) {
                                 Toast.makeText(activity, "Signed in successfully!", Toast.LENGTH_SHORT).show()
 
-                                val sharedPref = context!!.getSharedPreferences("CRED", Context.MODE_PRIVATE)
-                                val editor = sharedPref.edit()
-                                editor.putString("TOKEN", APIHandler.token)
-                                editor.putString("ID", APIHandler.personalId)
-                                editor.apply()
+                                val sharedPrefs = context!!.getSharedPreferences("CREDENTIALS", Context.MODE_PRIVATE)
+                                val sharedPrefsEditor = sharedPrefs.edit()
+                                sharedPrefsEditor.putString("TOKEN", APIHandler.token)
+                                sharedPrefsEditor.putString("EMAIL", APIHandler.email)
+                                sharedPrefsEditor.apply()
 
                                 startActivity(Intent(activity, MainActivity::class.java))
                                 activity!!.finish()
@@ -69,5 +67,6 @@ class LoginFragment : Fragment() {
                 }
             }.start()
         }
+
     }
 }

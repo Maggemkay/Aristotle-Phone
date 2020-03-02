@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import com.google.gson.Gson
 import io.github.cdimascio.dotenv.dotenv
+import kotlinx.coroutines.runBlocking
 
 
 object APIHandler {
@@ -18,16 +19,17 @@ object APIHandler {
 
     private val url = "http://" + dotenv["API_IP"] + ":" + dotenv["API_PORT"]
     var token = ""
-    var personalId = ""
+    var email = ""
 
 
-    suspend fun login(username: String, password: String, callback: (success: Boolean) -> Unit) {
-        val session = loginRequest(username, password)
+    suspend fun login(email: String, password: String, callback: (Boolean) -> Unit) {
+        val session = loginRequest(email, password)
+
         callback(
             when (session.auth) {
                 true -> {
                     this.token = session.token
-                    this.personalId = username
+                    this.email = email
                     true
                 }
                 else -> {
@@ -39,24 +41,25 @@ object APIHandler {
     }
 
 
-    suspend fun loginRequest(username: String, password: String): Session {
-        val (_, _, result) = run {
+    suspend fun loginRequest(email: String, password: String): Session {
+        val (_, _, result) = runBlocking {
             Fuel.post("$url/")
-                .jsonBody(""""{
-                        "username": "$username",
-                        "password": "$password",
-                        "grant_type": "password" }""")
+                .jsonBody("""{
+                    "email": "$email",
+                    "password": "$password"
+                    }""")
                 .awaitStringResponseResult()
         }
 
-        var token = Session(false, "")
+        var session = Session(false, "")
+
         result.fold({ data ->
-            token = Gson().fromJson(data, Session::class.java)
-            // token = Json.parse(Session.serializer(), data)
+            session = Session(true, data)
         }, {
             print("Failed with login attempt.")
         })
-        return token
+
+        return session
     }
 
 
@@ -65,7 +68,7 @@ object APIHandler {
             "" -> { false }
             else -> {
                 token = ""
-                personalId = ""
+                email = ""
                 true
             }
         }
