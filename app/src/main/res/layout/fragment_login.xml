@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativelayout"
@@ -10,7 +9,7 @@
     tools:context=".MainActivity.MainActivity">
 
     <ImageView
-        android:id="@+id/myImageView"
+        android:id="@+id/ImageViewLoginBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/background"
@@ -19,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/myImageViewText"
+        android:id="@+id/TextViewLoginHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -31,19 +30,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/loginEditTextUsername"
+        android:id="@+id/EditTextLoginUsername"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:hint="@string/username"
+        android:hint="@string/email"
+        app:boxBackgroundColor="#ffffff"
         app:boxBackgroundMode="filled"
-        app:layout_constraintBottom_toTopOf="@+id/loginEditTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/EditTextLoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:boxBackgroundColor="#ffffff">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -52,13 +51,13 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginEditTextPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/EditTextLoginPassword"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:hint="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
+        app:boxBackgroundColor="#ffffff"
+        app:boxBackgroundMode="filled"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLoginForgotPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent">
@@ -69,7 +68,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/forgotPassword"
+        android:id="@+id/ButtonLoginForgotPassword"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,22 +80,22 @@
         android:textColor="#000000"
         android:textSize="10sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/button_login"
-        app:layout_constraintEnd_toEndOf="@+id/loginEditTextPassword" />
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLogin"
+        app:layout_constraintEnd_toEndOf="@+id/EditTextLoginPassword" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_login"
+        android:id="@+id/ButtonLogin"
         android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/dontHaveAnAccount"
-        app:layout_constraintEnd_toEndOf="@+id/dontHaveAnAccount"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLoginDontHaveAnAccount"
+        app:layout_constraintEnd_toEndOf="@+id/ButtonLoginDontHaveAnAccount"
         app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="@+id/dontHaveAnAccount" />
+        app:layout_constraintStart_toStartOf="@+id/ButtonLoginDontHaveAnAccount" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/dontHaveAnAccount"
+        android:id="@+id/ButtonLoginDontHaveAnAccount"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
