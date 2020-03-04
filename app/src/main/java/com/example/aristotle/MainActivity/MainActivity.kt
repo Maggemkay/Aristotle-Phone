@@ -22,8 +22,6 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
     // Replace below with your own subscription key
@@ -75,6 +73,10 @@ class MainActivity : AppCompatActivity() {
         var txt = this.findViewById(com.example.aristotle.R.id.text) as TextView // 'hello' is the ID of your text view
         txt.text = "Stopped transcribing"
         reco.stopContinuousRecognitionAsync().get()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         reco.close()
     }
 }
