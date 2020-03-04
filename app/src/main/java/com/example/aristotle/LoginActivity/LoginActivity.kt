@@ -12,13 +12,13 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val sharedPref = this.getSharedPreferences("CREDENTIALS", Context.MODE_PRIVATE)
         APIHandler.token = sharedPref.getString("TOKEN", "")
-        APIHandler.personalId = sharedPref.getString("ID", "")
+        APIHandler.email = sharedPref.getString("EMAIL", "")
 
         if (!APIHandler.token.equals("")) {
+            setContentView(R.layout.activity_main)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
