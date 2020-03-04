@@ -15,11 +15,16 @@ import com.microsoft.cognitiveservices.speech.SpeechRecognitionResult
 
 import android.R
 import java.util.*
+import android.text.method.ScrollingMovementMethod
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class MainActivity : AppCompatActivity() {
-
-
 
     // Replace below with your own subscription key
     private val speechSubscriptionKey = "967ff322c456498b86b73d7dec3ad592"
@@ -43,13 +48,15 @@ class MainActivity : AppCompatActivity() {
 
     fun onSpeechButtonClicked(v: View)
     {
+        var result = ""
         var txt = this.findViewById(com.example.aristotle.R.id.text) as TextView // 'hello' is the ID of your text view
-        txt.text = "Text"
+        txt.setMovementMethod(ScrollingMovementMethod())
+        txt.text = ""
 
         try {
-
-            reco.recognizing.addEventListener({ s, e -> txt.text = "RECOGNIZING: Text=" + e.getResult().getText() })
-
+            reco.recognizing.addEventListener({ _, e -> txt.text = result + e.getResult().getText()+". " })
+            //reco.recognizing.addEventListener({ s, e -> result = e.getResult().getText() })
+            reco.recognized.addEventListener({ _, e -> result = txt.text.toString() + "\n"})
 
             // Starts continuous recognition. Uses stopContinuousRecognitionAsync() to stop recognition.
             println("Say something...")
