@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Aristotle</string>
+    <string name="new_meeting">New Meeting</string>
+    <string name="selectTime">Select time</string>
+
+    <string name="startTime">Start time</string>
+    <string name="endTime">End time</string>
+    <string name="AddParticipants">Add participants</string>
+    <string name="meetingSubject">Meeting subject</string>
+    <string name="location">Location/room no.</string>
+    <string name="next">NEXT</string>
+    <string name="Add_participants">Add participants</string>
+
+
 </resources>
