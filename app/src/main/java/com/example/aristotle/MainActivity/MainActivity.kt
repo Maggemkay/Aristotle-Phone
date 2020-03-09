@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.statistics -> {
                     println("Statistics pressed")
                     replaceFragment(StatisticsFragment())
-
                     return@OnNavigationItemSelectedListener true
                 }
 
