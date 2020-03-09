@@ -16,10 +16,16 @@ import com.microsoft.cognitiveservices.speech.SpeechRecognitionResult
 import android.R
 import java.util.*
 import android.text.method.ScrollingMovementMethod
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.opengl.ETC1.getHeight
+//import sun.text.normalizer.UTF16.append
 import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -74,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         txt.text = "Stopped transcribing"
         reco.stopContinuousRecognitionAsync().get()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
