@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
         false
     }
 
@@ -50,10 +51,8 @@ class MainActivity : AppCompatActivity() {
 //        Setting the default view of the app
         bottom_navigation.setOnNavigationItemSelectedListener(m0nNavigationItemSelectedListener)
         replaceFragment(CalendarFragment())
-
-
-
     }
+
 
 
     private fun replaceFragment(fragment: Fragment) {
@@ -61,5 +60,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragmentContainer , fragment)
         fragmentTransaction.commit()
     }
+
 
 }
