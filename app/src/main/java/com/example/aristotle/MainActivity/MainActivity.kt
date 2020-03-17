@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.contacts -> {
-                replaceFragment(ContactsFragment())
+                replaceFragment(TranscriptionFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
