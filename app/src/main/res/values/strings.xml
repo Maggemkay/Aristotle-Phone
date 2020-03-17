@@ -10,6 +10,7 @@
     <string name="location">Location/room no.</string>
     <string name="next">NEXT</string>
     <string name="Add_participants">Add participants</string>
+    <string name="add_participants">add participants</string>
 
 
 </resources>
