@@ -1,10 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-<<<<<<< HEAD
-    <style name="AppLoginTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-=======
+    <style name="AppLoginTheme" parent="Theme.MaterialComponents.Light.NoActionBar"/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
->>>>>>> in_meeting_screen_60
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

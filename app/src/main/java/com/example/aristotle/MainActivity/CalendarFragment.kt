@@ -1,10 +1,7 @@
 package com.example.aristotle
 
-<<<<<<< HEAD
-=======
 
 import android.content.Intent
->>>>>>> in_meeting_screen_60
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

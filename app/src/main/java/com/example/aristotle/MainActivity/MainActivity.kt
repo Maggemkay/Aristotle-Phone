@@ -45,14 +45,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-<<<<<<< HEAD
-        bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-//        replaceFragment(CalendarFragment())
-=======
 //        Setting the default view of the app
-        bottom_navigation.setOnNavigationItemSelectedListener(m0nNavigationItemSelectedListener)
+        bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         replaceFragment(CalendarFragment())
->>>>>>> in_meeting_screen_60
     }
 
 
