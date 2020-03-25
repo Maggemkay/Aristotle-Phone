@@ -9,9 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.aristotle.R
 import kotlinx.android.synthetic.main.activity_meeting.*
-import kotlinx.android.synthetic.main.fragment_calendar.view.*
 
-class meeting : AppCompatActivity() {
+class InMeetingFragment : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +42,7 @@ class meeting : AppCompatActivity() {
 
         StopButton.setOnClickListener() {
 //Alert Dialog initialization
-            val builder = AlertDialog.Builder(this@meeting)
+            val builder = AlertDialog.Builder(this@InMeetingFragment)
             builder.setTitle("Exit Meeting ?")
             builder.setMessage("You are about to end the current meeting." + "Are you sure you want to end it?")
 // Setting positive button value and action

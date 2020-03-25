@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.aristotle.MainActivity.meeting
+import com.example.aristotle.MainActivity.InMeetingFragment
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
@@ -33,7 +33,7 @@ class CalendarFragment : Fragment() {
     }
 
     public fun openameeting() {
-        val intent = Intent(context, meeting::class.java)
+        val intent = Intent(context, InMeetingFragment::class.java)
         startActivity(intent)
     }
 }
