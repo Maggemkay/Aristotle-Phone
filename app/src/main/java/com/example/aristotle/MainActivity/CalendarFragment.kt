@@ -1,7 +1,6 @@
 package com.example.aristotle
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,8 +28,12 @@ class CalendarFragment : Fragment() {
 
     }
 
-    public fun openameeting() {
-        val intent = Intent(context, InMeetingFragment::class.java)
-        startActivity(intent)
+    fun openameeting() {
+        val fragment = InMeetingFragment()
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 }

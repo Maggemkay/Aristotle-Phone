@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.newMeeting -> {
-                replaceFragment(MeetingFragment())
+                replaceFragment(InMeetingFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
