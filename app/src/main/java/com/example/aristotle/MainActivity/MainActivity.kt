@@ -38,6 +38,18 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
 
+            R.id.changepassword -> {
+                println("Change password pressed")
+                replaceFragment(ChangePasswordFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+
+            R.id.viewprofile -> {
+                println("view profile pressed")
+                replaceFragment(ViewProfileFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+
         }
         false
     }
