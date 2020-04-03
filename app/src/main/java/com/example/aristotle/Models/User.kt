@@ -1,8 +1,8 @@
 package com.example.aristotle.Models
 
 class User(
-    var username: String,
     val id: String,
+    var username: String,
     val password: String,
     val email: String,
     val firstName: String,

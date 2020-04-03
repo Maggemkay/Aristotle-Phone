@@ -94,13 +94,13 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLoginDontHaveAnAccount"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLoginDontHaveAnAccount"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLoginCreateAccount"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginCreateAccount"
         app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="@+id/buttonLoginDontHaveAnAccount" />
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginCreateAccount" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonLoginDontHaveAnAccount"
+        android:id="@+id/buttonLoginCreateAccount"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

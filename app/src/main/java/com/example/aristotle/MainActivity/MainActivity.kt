@@ -1,7 +1,6 @@
 package com.example.aristotle.MainActivity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.aristotle.*
@@ -16,22 +15,22 @@ class MainActivity : AppCompatActivity() {
 
         when(item.itemId){
             R.id.calendar -> {
-                replaceFragment(CalendarFragment())
+                fragmentSwitcher(CalendarFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.newMeeting -> {
-                replaceFragment(InMeetingFragment())
+                fragmentSwitcher(InMeetingFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.statistics -> {
-                replaceFragment(StatisticsFragment())
+                fragmentSwitcher(StatisticsFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.contacts -> {
-                replaceFragment(ContactsFragment())
+                fragmentSwitcher(ContactsFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -47,12 +46,12 @@ class MainActivity : AppCompatActivity() {
 
 //        Setting the default view of the app
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        replaceFragment(CalendarFragment())
+        fragmentSwitcher(CalendarFragment())
     }
 
 
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun fragmentSwitcher(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentHolderMain , fragment)
         fragmentTransaction.commit()
