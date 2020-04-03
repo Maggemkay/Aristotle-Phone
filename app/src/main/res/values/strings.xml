@@ -14,4 +14,9 @@
     <string name="forgotpassword_text">Enter your email address and you will get a link to reset your password.</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="date_time_subject">17 jan 15:00-16:00 Retrospective</string>
+    <string name="notes">Notes</string>
+    <string name="transcriptions">Transcriptions</string>
+    <string name="participants_attendance">Participants attendance</string>
+    <string name="participants_activity">Participants activity</string>
 </resources>

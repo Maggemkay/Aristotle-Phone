@@ -8,8 +8,8 @@
     android:background="#F8F2F0"
     tools:context=".StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+<<<<<<< Updated upstream
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -19,11 +19,183 @@
         android:text="Statistics"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
+=======
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Serach_field"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="#ECE0DB"
+        android:hint="Search meetings subject"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        tools:layout_editor_absoluteY="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/Title_subject"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="92dp"
+        android:text="@string/date_time_subject"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/Serach_field"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Notes -->
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/notes"
+        android:textColor="#000000"
+        android:clickable="true"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/note_image"
+        app:layout_constraintTop_toBottomOf="@+id/Title_subject" />
+
+    <ImageView
+        android:id="@+id/note_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/notes"
+        app:layout_constraintStart_toStartOf="@+id/Title_subject"
+        app:layout_constraintTop_toBottomOf="@+id/Title_subject" />
+
+    <View
+        android:id="@+id/notes_line"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#E2DDDB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notes" />
+
+    <!-- Transcription -->
+    <TextView
+        android:id="@+id/transcription"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/transcriptions"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:clickable="true"
+        app:layout_constraintStart_toEndOf="@+id/transcription_image"
+        app:layout_constraintTop_toBottomOf="@+id/notes_line" />
+
+    <ImageView
+        android:id="@+id/transcription_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/transcribe"
+        app:layout_constraintStart_toStartOf="@+id/note_image"
+        tools:layout_editor_absoluteY="158dp" />
+
+
+    <View
+        android:id="@+id/transcription_line"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#E2DDDB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transcription" />
+
+    <!-- Participants activity -->
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:text="@string/participants_activity"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/activity_image"
+        app:layout_constraintTop_toTopOf="@+id/transcription_line" />
+
+    <ImageView
+        android:id="@+id/activity_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/activity"
+        app:layout_constraintStart_toStartOf="@+id/transcription_image"
+        tools:layout_editor_absoluteY="194dp" />
+
+    <View
+        android:id="@+id/activity_line"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#E2DDDB"
+>>>>>>> Stashed changes
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transcription" />
+
+    <!-- Participants attendance -->
+    <TextView
+        android:id="@+id/attendance"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:text="@string/participants_attendance"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/attendance_image"
+        app:layout_constraintTop_toBottomOf="@+id/attendance_line" />
+
+<<<<<<< Updated upstream
+=======
+    <ImageView
+        android:id="@+id/attendance_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/attendance"
+        app:layout_constraintStart_toStartOf="@+id/activity_image"
+        app:layout_constraintTop_toBottomOf="@+id/attendance_line" />
+
+    <View
+        android:id="@+id/attendance_line"
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#E2DDDB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="380dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="#E2DDDB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attendance" />
+>>>>>>> Stashed changes
+
