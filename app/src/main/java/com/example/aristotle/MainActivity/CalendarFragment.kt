@@ -30,7 +30,7 @@ class CalendarFragment : Fragment() {
 
     fun openameeting() {
         val fragment = InMeetingFragment()
-        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.container, fragment)
         fragmentTransaction.addToBackStack(null)
