@@ -16,6 +16,14 @@ class LoginActivity : AppCompatActivity() {
     val loginFragment = LoginFragment()
     val createAccountFragment = LoginCreateAccountFragment()
 
+    fun fragmentSwitcher(fragment: Fragment) {
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolderLogin , fragment)
+            //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
+            .addToBackStack(null)
+            .commit()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,12 +45,6 @@ class LoginActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    fun fragmentSwitcher(fragment: Fragment) {
-        fragmentManager.beginTransaction()
-            .replace(R.id.fragmentHolderLogin , fragment)
-            //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
-            .addToBackStack(null)
-            .commit()
-    }
+
 
 }

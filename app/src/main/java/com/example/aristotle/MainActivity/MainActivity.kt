@@ -10,52 +10,60 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val fragmentManager = supportFragmentManager
+    val calendarFragment = CalendarFragment()
+    val meetingFragment = MeetingFragment()
+    val statisticsFragment = StatisticsFragment()
+    val contactsFragment = ContactsFragment()
+    val inMeetingFragment = InMeetingFragment()
+
     // Fragmnent Switcher
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-
         when(item.itemId){
             R.id.calendar -> {
-                fragmentSwitcher(CalendarFragment())
+                fragmentSwitcher(calendarFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.newMeeting -> {
-                fragmentSwitcher(InMeetingFragment())
+                fragmentSwitcher(inMeetingFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.statistics -> {
-                fragmentSwitcher(StatisticsFragment())
+                fragmentSwitcher(statisticsFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.contacts -> {
-                fragmentSwitcher(ContactsFragment())
+                fragmentSwitcher(contactsFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
         }
-
         false
+    }
+
+    fun fragmentSwitcher(fragment: Fragment) {
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolderMain, fragment)
+            //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
+            .addToBackStack(null)
+            .commit()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
 //        Setting the default view of the app
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        fragmentSwitcher(CalendarFragment())
-    }
 
-
-
-    private fun fragmentSwitcher(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentHolderMain , fragment)
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fragmentHolderMain, calendarFragment)
         fragmentTransaction.commit()
     }
+
+
+
 
 
 }

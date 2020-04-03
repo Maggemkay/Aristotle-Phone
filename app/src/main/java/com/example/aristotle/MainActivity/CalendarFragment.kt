@@ -19,21 +19,4 @@ class CalendarFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        meeting_btn1.setOnClickListener() {
-            openameeting()
-        }
-
-    }
-
-    fun openameeting() {
-        val fragment = InMeetingFragment()
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
 }
