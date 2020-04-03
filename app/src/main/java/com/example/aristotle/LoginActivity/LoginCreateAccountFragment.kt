@@ -1,6 +1,7 @@
 package com.example.aristotle.LoginActivity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,32 +27,33 @@ class LoginCreateAccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonSignup.setOnClickListener {
-            val username = editTextUsername.text.toString()
-            val firstName = editTextFirstName.text.toString()
-            val lastName = editTextLastName.text.toString()
-            val email = editTextEmail.text.toString()
-            val password = editTextPassword.text.toString()
-            val confirmPassword = editTextConfirmPassword.text.toString()
+            val username = editTextUsername.text.toString().replace("\\s".toRegex(), "")
+            val firstName = editTextFirstName.text.toString().replace("\\s".toRegex(), "")
+            val lastName = editTextLastName.text.toString().replace("\\s".toRegex(), "")
+            val email = editTextEmail.text.toString().replace("\\s".toRegex(), "")
+            val password = editTextPassword.text.toString().replace("\\s".toRegex(), "")
+            val confirmPassword = editTextConfirmPassword.text.toString().replace("\\s".toRegex(), "")
 
             // TODO: Handle confirm password.
 
-            var check = true
+            var isValid = true
 
-            if (username.isBlank())
-                check = false
-            if (firstName.isBlank())
-                check = false
-            if (lastName.isBlank())
-                check = false
-            if (email.isBlank())
-                check = false
-            if (password.isBlank())
-                check = false
-            if (confirmPassword.isBlank())
-                check = false
+            if (!isValid || username.isBlank() || username.isEmpty() || username.length > 64)
+                isValid = false
+            if (!isValid || firstName.isBlank() || firstName.isEmpty() || firstName.length > 64)
+                isValid = false
+            if (!isValid || lastName.isBlank() || lastName.isEmpty() || lastName.length > 64)
+                isValid = false
+            if (!isValid || email.isBlank() || email.isEmpty() || email.length > 256)
+                isValid = false
+            if (!isValid || password.isBlank() || password.isEmpty() || password.length > 64)
+                isValid = false
+            if (!isValid || confirmPassword.isBlank() || confirmPassword.isEmpty() || confirmPassword.length > 64 || password != confirmPassword)
+                isValid = false
+
 
             activity?.runOnUiThread {
-                if (check) {
+                if (isValid) {
                     val newUser = User(
                         id = "",
                         username = username,
@@ -71,7 +73,7 @@ class LoginCreateAccountFragment : Fragment() {
                                         .show()
 
                                     val act = activity as LoginActivity
-                                    act.fragmentSwitcher(act.loginFragment)
+                                    act.onBackPressed()
                                 } else {
                                     Toast.makeText(
                                         activity,
@@ -86,7 +88,7 @@ class LoginCreateAccountFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         activity,
-                        "Empty Fields",
+                        "Invalid input!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -96,7 +98,7 @@ class LoginCreateAccountFragment : Fragment() {
 
         buttonCancel.setOnClickListener {
             val act = activity as LoginActivity
-            act.fragmentSwitcher(act.loginFragment)
+            act.onBackPressed()
         }
 
 

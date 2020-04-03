@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         // Sets initial fragment
         setContentView(R.layout.activity_login)
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentHolderLogin , loginFragment)
+        fragmentTransaction.add(R.id.fragmentHolderLogin , loginFragment)
         fragmentTransaction.commit()
     }
 
@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .replace(R.id.fragmentHolderLogin , fragment)
             //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
-            .addToBackStack("login")
+            .addToBackStack(null)
             .commit()
     }
 

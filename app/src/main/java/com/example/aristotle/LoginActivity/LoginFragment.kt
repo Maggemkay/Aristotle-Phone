@@ -1,6 +1,5 @@
 package com.example.aristotle.LoginActivity
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -43,14 +42,14 @@ class LoginFragment : Fragment() {
                         if (didLogin) {
                             Toast.makeText(activity, "Signed in successfully!", Toast.LENGTH_SHORT).show()
 
-                            val sharedPrefs = activity!!.getSharedPreferences("CREDENTIALS", Context.MODE_PRIVATE)
+                            val sharedPrefs = requireActivity().getSharedPreferences("CREDENTIALS", Context.MODE_PRIVATE)
                             val sharedPrefsEditor = sharedPrefs.edit()
                             sharedPrefsEditor.putString("TOKEN", APIHandler.token)
                             sharedPrefsEditor.putString("EMAIL", APIHandler.email)
                             sharedPrefsEditor.apply()
 
                             startActivity(Intent(activity, MainActivity::class.java))
-                            activity!!.finish()
+                            requireActivity().finish()
                         } else {
                             Toast.makeText(activity, "Failed signing in.", Toast.LENGTH_SHORT).show()
                         }
