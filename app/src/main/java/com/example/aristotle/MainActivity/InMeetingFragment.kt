@@ -3,6 +3,7 @@ package com.example.aristotle.MainActivity
 import android.Manifest
 import android.app.Activity
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,10 +56,10 @@ class InMeetingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val animDrawable = InMeeting.background as AnimationDrawable
-//        animDrawable.setEnterFadeDuration(10)
-//        animDrawable.setExitFadeDuration(5000)
-//        animDrawable.start()
+        val animDrawable = InMeeting.background as AnimationDrawable
+        animDrawable.setEnterFadeDuration(10)
+        animDrawable.setExitFadeDuration(5000)
+        animDrawable.start()
 
         //  Play/Pause and Stop Button Handling
 
@@ -84,30 +85,35 @@ class InMeetingFragment : Fragment() {
         transcriptionStartPause.setOnClickListener() {
 
             if (pause == false) {
-//                PlayPauseButton.setImageResource(R.drawable.resume)
+                transcriptionStartPause.setImageResource(R.drawable.resume)
                 Toast.makeText(this.context , "Pause Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = true
             }
             else {
-//                PlayPauseButton.setImageResource(R.drawable.pause)
+                transcriptionStartPause.setImageResource(R.drawable.pause)
                 Toast.makeText(this.context , "Resume Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = false
             }
         }
 
         transcriptionStop.setOnClickListener() {
-            var txt = transcriptionTextView as TextView
-            txt.text = "Stopped transcribing"
-            reco.stopContinuousRecognitionAsync().get()
+
 
             //Alert Dialog initialization
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
             builder?.setTitle("Exit Meeting ?")
             builder?.setMessage("You are about to end the current meeting." + "Are you sure you want to end it?")
+
             // Setting positive button value and action
             builder?.setPositiveButton("END") { dialog, which->
+
+                var txt = transcriptionTextView as TextView
+                txt.text = "Stopped transcribing"
+                reco.stopContinuousRecognitionAsync().get()
+
                 Toast.makeText(this.context , "Stop Button Pressed , meeting finished" , Toast.LENGTH_SHORT).show()
             }
+
             // Setting negative button value and action
             builder?.setNegativeButton("CANCEL") { dialog, which ->
                 Toast.makeText(this.context , "Stop Button Pressed , meeting resumed" , Toast.LENGTH_SHORT).show()
@@ -124,11 +130,23 @@ class InMeetingFragment : Fragment() {
             transcriptionTextView.visibility = View.VISIBLE
         }
 
-        InMeeting.setOnClickListener() {
+        transcriptionTextView.setOnClickListener() {
             transcriptionTextView.visibility = View.INVISIBLE
+        }
+
+
+        //    Notes handler
+        NotesButton.setOnClickListener(){
+            notesArea.visibility = View.VISIBLE
+        }
+        cancelNotes.setOnClickListener() {
+            notesArea.visibility = View.INVISIBLE
+        }
+        saveNotes.setOnClickListener(){
+            notesArea.visibility = View.INVISIBLE
         }
 
     }
 
+    }
 
-}

@@ -1,6 +1,7 @@
 package com.example.aristotle.MainActivity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.aristotle.*
@@ -60,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.fragmentHolderMain, calendarFragment)
         fragmentTransaction.commit()
+
+//      Hiding the status bar so the app can be full screen.
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
     }
 
 
