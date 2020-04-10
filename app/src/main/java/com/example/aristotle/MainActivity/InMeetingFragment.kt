@@ -26,7 +26,7 @@ import androidx.core.app.ActivityCompat
 class InMeetingFragment : Fragment() {
 
     // Replace below with your own subscription key
-    private val speechSubscriptionKey = "2b6ec3cd-9c29-400e-a335-ecac64a2745f"
+    private val speechSubscriptionKey = "1a19105f812048d1981d7c37f9bb2019"
 //    private val speechSubscriptionKey = "967ff322c456498b86b73d7dec3ad592"
     // Replace below with your own service region (e.g., "westus").
     private val serviceRegion = "northeurope"
