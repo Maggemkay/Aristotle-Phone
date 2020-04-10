@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_transcription.*
 class TranscriptionFragment : Fragment() {
 
     // Replace below with your own subscription key
-    private val speechSubscriptionKey = "967ff322c456498b86b73d7dec3ad592"
+    private val speechSubscriptionKey = "1a19105f812048d1981d7c37f9bb2019"
     // Replace below with your own service region (e.g., "westus").
     private val serviceRegion = "northeurope"
 
