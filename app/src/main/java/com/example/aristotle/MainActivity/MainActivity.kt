@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.newMeeting -> {
-                fragmentSwitcher(inMeetingFragment)
+                fragmentSwitcher(meetingFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.statistics -> {
