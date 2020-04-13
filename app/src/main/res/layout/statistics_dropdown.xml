@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Title_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_time_subject"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:drawableEnd="@drawable/expand_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- This should be hidden and showing this constraint layout on click to give the dropdown effect easily -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notes"
+            android:layout_width="243dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/notes"
+            android:textColor="#000000"
+            android:clickable="true"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/note_image"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/note_image"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/notes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/notes_line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E2DDDB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notes" />
+
+        <!-- Transcription -->
+        <TextView
+            android:id="@+id/transcription"
+            android:layout_width="243dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/transcriptions"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/transcription_image"
+            app:layout_constraintTop_toBottomOf="@+id/notes_line" />
+
+        <ImageView
+            android:id="@+id/transcription_image"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/transcribe"
+            app:layout_constraintStart_toStartOf="@+id/note_image"
+            app:layout_constraintTop_toTopOf="@+id/transcription" />
+
+
+        <View
+            android:id="@+id/transcription_line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E2DDDB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/transcription" />
+
+        <!-- Participants activity -->
+        <TextView
+            android:id="@+id/activity"
+            android:layout_width="243dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:text="@string/participants_activity"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/activity_image"
+            app:layout_constraintTop_toTopOf="@+id/transcription_line" />
+
+        <ImageView
+            android:id="@+id/activity_image"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/activity"
+            app:layout_constraintStart_toStartOf="@+id/transcription_image"
+            app:layout_constraintTop_toTopOf="@+id/activity" />
+
+        <View
+            android:id="@+id/activity_line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E2DDDB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/transcription" />
+
+        <!-- Participants attendance -->
+        <TextView
+            android:id="@+id/attendance"
+            android:layout_width="243dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:text="@string/participants_attendance"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/attendance_image"
+            app:layout_constraintTop_toBottomOf="@+id/attendance_line" />
+
+        <ImageView
+            android:id="@+id/attendance_image"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/attendance"
+            app:layout_constraintStart_toStartOf="@+id/activity_image"
+            app:layout_constraintTop_toBottomOf="@+id/attendance_line" />
+
+        <View
+            android:id="@+id/attendance_line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E2DDDB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity" />
+        <View
+            android:id="@+id/thick_line_1"
+            android:layout_width="380dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="8dp"
+            android:background="#E2DDDB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attendance" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
