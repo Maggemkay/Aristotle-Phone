@@ -2,8 +2,13 @@
 <resources>
     <color name="colorPrimary">#F97E2C</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name = "white">#FFFFFF</color>
-    <color name = "black">#000000</color>
-    <color name = "background">#F8F2F0</color>
+    <color name="colorAccent">#F97E2C</color>
+    <color name ="white">#FFFFFF</color>
+    <color name ="black">#000000</color>
+    <color name ="background">#F8F2F0</color>
+    <color name="Transparent">#00ffffff</color>
+
+    <color name="colorGradientCenter">#F0A09D</color>
+    <color name="colorGradientStart">#F67831</color>
+    <color name="colorGradientEnd">#D6BEB3</color>
 </resources>

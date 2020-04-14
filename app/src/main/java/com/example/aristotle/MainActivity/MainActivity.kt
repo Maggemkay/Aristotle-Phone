@@ -5,36 +5,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.aristotle.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.aristotle.R
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity() {
 
+    private val fragmentManager = supportFragmentManager
+    val calendarFragment = CalendarFragment()
+    val meetingFragment = MeetingFragment()
+    val statisticsFragment = StatisticsFragment()
+    val contactsFragment = ContactsFragment()
+    val inMeetingFragment = InMeetingFragment()
 
-    private val m0nNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-//        Fragmnent Switcher
+    // Fragmnent Switcher
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId){
             R.id.calendar -> {
-                println("calendar pressed")
-                replaceFragment(CalendarFragment())
+                fragmentSwitcher(calendarFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.newMeeting -> {
-                println("New Meeting pressed")
-                replaceFragment(MeetingFragment())
+                fragmentSwitcher(inMeetingFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.statistics -> {
-                println("Statistics pressed")
-                replaceFragment(StatisticsFragment())
+                fragmentSwitcher(statisticsFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
             R.id.contacts -> {
-                println("Contacts pressed")
-                replaceFragment(ContactsFragment())
+                fragmentSwitcher(contactsFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -54,24 +53,30 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+    fun fragmentSwitcher(fragment: Fragment) {
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolderMain, fragment)
+            //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
 //        Setting the default view of the app
-        bottom_navigation.setOnNavigationItemSelectedListener(m0nNavigationItemSelectedListener)
-        replaceFragment(CalendarFragment())
+        bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-
-
-    }
-
-
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer , fragment)
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fragmentHolderMain, calendarFragment)
         fragmentTransaction.commit()
     }
+
+
+
+
 
 }

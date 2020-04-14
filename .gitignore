@@ -1,3 +1,6 @@
+# Our own .ignores
+env
+
 # Built application files
 *.apk
 *.aar
