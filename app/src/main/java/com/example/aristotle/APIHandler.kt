@@ -61,19 +61,17 @@ object APIHandler {
 
             return session
         }
+    }
 
-
-        fun logout(): Boolean {
-            return when (token) {
-                "" -> { false }
-                else -> {
-                    token = ""
-                    email = ""
-                    true
-                }
+    fun logout(): Boolean {
+        return when (token) {
+            "" -> { false }
+            else -> {
+                token = ""
+                email = ""
+                true
             }
         }
-
     }
 
     object Register {
