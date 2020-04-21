@@ -19,7 +19,9 @@ object APIHandler {
 
     private val url = "http://" + dotenv["API_IP"] + ":" + dotenv["API_PORT"]
     var token = ""
-    var email = ""
+//    var email = ""
+
+    lateinit var user: User
 
 
     object Login {
@@ -30,7 +32,7 @@ object APIHandler {
                 when (session.auth) {
                     true -> {
                         token = session.token
-                        email = inputEmail
+                        user = getLoginUser(token)
                         true
                     }
                     else -> {
@@ -61,6 +63,26 @@ object APIHandler {
 
             return session
         }
+
+        private suspend fun getLoginUser(token: String): User {
+            val (_, _, result) = runBlocking {
+                Fuel.get("$url/users/id")
+                    .set("Authorization", token)
+                    .awaitStringResponseResult()
+            }
+
+            lateinit var user: User
+
+            result.fold({ data ->
+                user = Gson().fromJson(data, User::class.java)
+            }, {
+                print("Failed to get user.")
+            })
+
+            return user
+        }
+
+
     }
 
     fun logout(): Boolean {
@@ -68,7 +90,7 @@ object APIHandler {
             "" -> { false }
             else -> {
                 token = ""
-                email = ""
+//                email = ""
                 true
             }
         }
