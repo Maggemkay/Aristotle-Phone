@@ -126,24 +126,29 @@ class InMeetingFragment : Fragment() {
         }
 
         SaveButton.setOnClickListener {
-            var FILE_NAME = "example.txt"
-            val fileOutputStream:FileOutputStream
-            try {
-                fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
-                fileOutputStream.write(data.toByteArray())
-            } catch (e: FileNotFoundException){
-                e.printStackTrace()
-            }catch (e: NumberFormatException){
-                e.printStackTrace()
-            }catch (e: IOException){
-                e.printStackTrace()
-            }catch (e: Exception){
-                e.printStackTrace()
+            var fileName = this.context?.filesDir?.toString()+ "example.txt"
+
+            var file = File(fileName)
+
+            // create a new file
+            val isNewFileCreated :Boolean = file.createNewFile()
+
+            if(isNewFileCreated){
+                file.writeText(txt.text.toString())
+                Toast.makeText(this.context,"data saved",Toast.LENGTH_LONG).show()
+
+                var testfile = File(fileName)
+
+                Log.d("Reading data", testfile.toString())
+
+            } else{
+                Toast.makeText(this.context,"already exists.",Toast.LENGTH_LONG).show()
+
+                var testfile = File(fileName)
+
+                Log.d("Reading data", testfile.bufferedReader().readLines().toString())
             }
-            Toast.makeText(applicationContext,"data save",Toast.LENGTH_LONG).show()
-            fileName.text.clear()
-            fileData.text.clear()
-        })
+
     }
 
         // Show transcriptions
