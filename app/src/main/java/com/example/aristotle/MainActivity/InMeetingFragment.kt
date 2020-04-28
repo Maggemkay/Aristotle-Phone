@@ -126,9 +126,15 @@ class InMeetingFragment : Fragment() {
         }
 
         SaveButton.setOnClickListener {
-            var fileName = this.context?.filesDir?.toString()+ "example.txt"
+//            val writeDir = this.context?.filesDir?.path + "/transcriptions/"
+//            var fileName = writeDir + "example.txt"
+            var fileName = this.context?.filesDir?.path + "/example.txt"
+
+            Log.d("Reading data filename", fileName)
 
             var file = File(fileName)
+
+//            Log.d("Reading data BIG BOI TEST", file.bufferedReader().readLines().toString())
 
             // create a new file
             val isNewFileCreated :Boolean = file.createNewFile()
