@@ -2,6 +2,7 @@ package com.example.aristotle.MainActivity
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +23,8 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import java.io.FileOutputStream
+import java.io.*
 
 class InMeetingFragment : Fragment() {
 
@@ -40,9 +43,10 @@ class InMeetingFragment : Fragment() {
         val requestCode = 5 // unique code for the permission request
         ActivityCompat.requestPermissions(
             this.context as Activity,
-            arrayOf<String>(Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET),
+            arrayOf<String>(Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET),
             requestCode
         )
+
     }
 
     override fun onCreateView(
@@ -66,6 +70,8 @@ class InMeetingFragment : Fragment() {
         var txt = transcriptionTextView as TextView
         txt.setMovementMethod(ScrollingMovementMethod())
         txt.text = ""
+
+
 
         try {
             reco.recognizing.addEventListener({ _, e -> txt.text = result + e.getResult().getText()+". " })
@@ -118,6 +124,27 @@ class InMeetingFragment : Fragment() {
             // Changing negative button color
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         }
+
+        SaveButton.setOnClickListener {
+            var FILE_NAME = "example.txt"
+            val fileOutputStream:FileOutputStream
+            try {
+                fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
+                fileOutputStream.write(data.toByteArray())
+            } catch (e: FileNotFoundException){
+                e.printStackTrace()
+            }catch (e: NumberFormatException){
+                e.printStackTrace()
+            }catch (e: IOException){
+                e.printStackTrace()
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            Toast.makeText(applicationContext,"data save",Toast.LENGTH_LONG).show()
+            fileName.text.clear()
+            fileData.text.clear()
+        })
+    }
 
         // Show transcriptions
         TranscriptionsButton.setOnClickListener {
