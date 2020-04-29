@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     val inMeetingFragment = InMeetingFragment()
     val changePasswordFragment = ChangePasswordFragment()
     val viewProfileFragment = ViewProfileFragment()
+    val viewUserFragment = UserFragment()
 
     // Fragmnent Switcher
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.contacts -> {
 //                fragmentSwitcher(contactsFragment)
-                fragmentSwitcher(viewProfileFragment)
+                fragmentSwitcher(viewUserFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
