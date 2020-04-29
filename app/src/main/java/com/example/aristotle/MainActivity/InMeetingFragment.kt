@@ -1,6 +1,7 @@
 package com.example.aristotle.MainActivity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
@@ -25,6 +26,11 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import java.io.FileOutputStream
 import java.io.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class InMeetingFragment : Fragment() {
 
@@ -56,6 +62,7 @@ class InMeetingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_inmeeting, container, false)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -128,7 +135,12 @@ class InMeetingFragment : Fragment() {
         SaveButton.setOnClickListener {
 //            val writeDir = this.context?.filesDir?.path + "/transcriptions/"
 //            var fileName = writeDir + "example.txt"
-            var fileName = this.context?.filesDir?.path + "/example.txt"
+            val currentDateTime = LocalDateTime.now()
+            var extension = ".txt"
+            var fileName = this.context?.filesDir?.path + "/" + currentDateTime.format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + extension
+
+
 
             Log.d("Reading data filename", fileName)
 
