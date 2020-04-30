@@ -1,13 +1,15 @@
 package com.example.aristotle
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_meeting.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MeetingFragment : Fragment() {
@@ -39,6 +41,9 @@ class MeetingFragment : Fragment() {
         }
 
 
+
+
+
 // handler for cancel button
         cancelTime.setOnClickListener {
             //adding our custom made animation xml file
@@ -66,17 +71,21 @@ class MeetingFragment : Fragment() {
             setter.startAnimation(animation)
             setter.visibility = View.INVISIBLE
             time.isEnabled = true
-            Toast.makeText(activity , "Selected time " + timePicker.hour + " : " + timePicker.minute, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity , "Selected time " + timePicker.hour + " : " + timePicker.minute , Toast.LENGTH_SHORT).show()
+            Log.d("Selected time", timePicker.hour.toString() + " : " + timePicker.minute)
+            Log.d("Selected date", calendarViewSet.firstSelectedDate.toString()) // selected date can be retrieved either like this or like in the code below, i added it here so it would logged when you press done. Below it'll be log when you select it 
 
         }
 //        set time picker to 24 hour view
         timePicker.setIs24HourView(true)
 //set calendar to current month
         calendarViewSet.showCurrentMonthPage()
-
+//print selected day in gregorian calendar format
         calendarViewSet.setOnDayClickListener { eventDay ->
             val clickedDayCalendar: Calendar = eventDay.calendar
-            println(clickedDayCalendar)
+//            println(clickedDayCalendar)
+            var date = clickedDayCalendar.toString() // date goes here
+            Log.d("Selected Date", date)
 
         }
 
