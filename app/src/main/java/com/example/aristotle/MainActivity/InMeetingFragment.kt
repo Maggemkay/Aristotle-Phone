@@ -3,7 +3,6 @@ package com.example.aristotle.MainActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,33 +14,30 @@ import androidx.fragment.app.Fragment
 import com.example.aristotle.R
 import kotlinx.android.synthetic.main.fragment_inmeeting.*
 
-import com.microsoft.cognitiveservices.speech.ResultReason
 import com.microsoft.cognitiveservices.speech.SpeechConfig
 import com.microsoft.cognitiveservices.speech.SpeechRecognizer
-import com.microsoft.cognitiveservices.speech.SpeechRecognitionResult
 
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import java.io.FileOutputStream
 import java.io.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class InMeetingFragment : Fragment() {
 
     // Replace below with your own subscription key
-    private val speechSubscriptionKey = "1a19105f812048d1981d7c37f9bb2019"
-//    private val speechSubscriptionKey = "967ff322c456498b86b73d7dec3ad592"
+    private val speechSubscriptionKey = "90477e8df88e4ebca77c765846d66795"
     // Replace below with your own service region (e.g., "westus").
     private val serviceRegion = "northeurope"
 
     var config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion)!!
     var reco = SpeechRecognizer(config)
+    var pause = true
+
+    var result = ""
+    lateinit var notesTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,107 +62,60 @@ class InMeetingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        notesTextView = transcriptionTextView as TextView
+        notesTextView.setMovementMethod(ScrollingMovementMethod())
+        notesTextView.setText(result)
+        
+
 //        val animDrawable = InMeeting.background as AnimationDrawable
 //        animDrawable.setEnterFadeDuration(10)
 //        animDrawable.setExitFadeDuration(5000)
 //        animDrawable.start()
 
-        //  Play/Pause and Stop Button Handling
-
-        var result = ""
-        var txt = transcriptionTextView as TextView
-        txt.setMovementMethod(ScrollingMovementMethod())
-        txt.text = ""
-
-
-
         try {
-            reco.recognizing.addEventListener({ _, e -> txt.text = result + e.getResult().getText()+". " })
-            reco.recognized.addEventListener({ _, e -> result = txt.text.toString() + "\n"})
-            Log.e("Text", txt.text.toString())
+            reco.recognizing.addEventListener({ _, e -> notesTextView.text = result + e.getResult().getText()+". " })
+            reco.recognized.addEventListener({ _, e -> result = notesTextView.text.toString() + "\n"})
+            Log.e("Text", notesTextView.text.toString())
 
-            // Starts continuous recognition. Uses stopContinuousRecognitionAsync() to stop recognition.
-            reco.startContinuousRecognitionAsync().get()
         } catch (ex: Exception) {
             Log.e("SpeechSDKDemo", "unexpected " + ex.message)
-            Log.e("Text", txt.text.toString())
+            Log.e("Text", notesTextView.text.toString())
             assert(false)
         }
 
-        var pause = false
         transcriptionStartPause.setOnClickListener() {
-
             if (pause == false) {
 //                PlayPauseButton.setImageResource(R.drawable.resume)
+                recogniztionStop()
                 Toast.makeText(this.context , "Pause Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = true
             }
             else {
 //                PlayPauseButton.setImageResource(R.drawable.pause)
+                recogniztionStart()
                 Toast.makeText(this.context , "Resume Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = false
             }
         }
 
         transcriptionStop.setOnClickListener() {
-            var txt = transcriptionTextView as TextView
-            txt.text = "Stopped transcribing"
-            reco.stopContinuousRecognitionAsync().get()
-
-            //Alert Dialog initialization
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
             builder?.setTitle("Exit Meeting ?")
-            builder?.setMessage("You are about to end the current meeting." + "Are you sure you want to end it?")
-            // Setting positive button value and action
-            builder?.setPositiveButton("END") { dialog, which->
+            builder?.setMessage("You are about to end the current meeting. Are you sure you want to end it?")
+            builder?.setPositiveButton("END MEETING") { dialog, which->
                 Toast.makeText(this.context , "Stop Button Pressed , meeting finished" , Toast.LENGTH_SHORT).show()
+                recogniztionStop()
             }
-            // Setting negative button value and action
             builder?.setNegativeButton("CANCEL") { dialog, which ->
-                Toast.makeText(this.context , "Stop Button Pressed , meeting resumed" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context , "Continuing meeting" , Toast.LENGTH_SHORT).show()
             }
-            // initializing builder into a val and displaying the dialog
             val dialog: AlertDialog = builder!!.create()
             dialog.show()
-            // Changing negative button color
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         }
 
         SaveButton.setOnClickListener {
-//            val writeDir = this.context?.filesDir?.path + "/transcriptions/"
-//            var fileName = writeDir + "example.txt"
-            val currentDateTime = LocalDateTime.now()
-            var extension = ".txt"
-            var fileName = this.context?.filesDir?.path + "/" + currentDateTime.format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + extension
-
-
-
-            Log.d("Reading data filename", fileName)
-
-            var file = File(fileName)
-
-//            Log.d("Reading data BIG BOI TEST", file.bufferedReader().readLines().toString())
-
-            // create a new file
-            val isNewFileCreated :Boolean = file.createNewFile()
-
-            if(isNewFileCreated){
-                file.writeText(txt.text.toString())
-                Toast.makeText(this.context,"data saved",Toast.LENGTH_LONG).show()
-
-                var testfile = File(fileName)
-
-                Log.d("Reading data", testfile.toString())
-
-            } else{
-                Toast.makeText(this.context,"already exists.",Toast.LENGTH_LONG).show()
-
-                var testfile = File(fileName)
-
-                Log.d("Reading data", testfile.bufferedReader().readLines().toString())
-            }
-
+            saveTextToFile()
     }
 
         // Show transcriptions
@@ -180,5 +129,46 @@ class InMeetingFragment : Fragment() {
 
     }
 
+    private fun recogniztionStart() {
+        // Starts continuous recognition. Uses stopContinuousRecognitionAsync() to stop recognition.
+        reco.startContinuousRecognitionAsync().get()
+    }
 
+    private fun recogniztionStop() {
+        reco.stopContinuousRecognitionAsync().get()
+    }
+
+    private fun saveTextToFile() {
+        // val writeDir = this.context?.filesDir?.path + "/transcriptions/"
+        // var fileName = writeDir + "example.txt"
+        val currentDateTime = LocalDateTime.now()
+        var extension = ".txt"
+        var fileName = this.context?.filesDir?.path + "/" + currentDateTime.format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + extension
+
+
+
+        Log.d("Reading data filename", fileName)
+
+        var file = File(fileName)
+
+//            Log.d("Reading data BIG BOI TEST", file.bufferedReader().readLines().toString())
+
+        // create a new file
+        val isNewFileCreated :Boolean = file.createNewFile()
+
+        if(isNewFileCreated){
+            file.writeText(notesTextView.text.toString())
+            Toast.makeText(this.context,"data saved",Toast.LENGTH_LONG).show()
+
+            var testfile = File(fileName)
+
+            Log.d("Reading data", testfile.toString())
+        } else{
+            Toast.makeText(this.context,"already exists.",Toast.LENGTH_LONG).show()
+
+            var testfile = File(fileName)
+            Log.d("Reading data", testfile.bufferedReader().readLines().toString())
+        }
+    }
 }
