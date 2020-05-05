@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
                     println("calendar pressed")
                     replaceFragment(CalendarFragment())
 
+                    toolbar1.visibility = View.INVISIBLE
+                    profile_image.visibility = View.VISIBLE
+                    toolbar.visibility = View.VISIBLE
+
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -36,6 +40,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.statistics -> {
                     println("Statistics pressed")
                     replaceFragment(StatisticsFragment())
+//                    hide primary toolbar, profile icon and text and reveal secondary toolbar
+                    toolbar.visibility = View.INVISIBLE
+                    profile_image.visibility = View.INVISIBLE
+                    toolbar1.visibility = View.VISIBLE
+
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -87,6 +96,12 @@ class MainActivity : AppCompatActivity() {
             // perform whatever you want on back arrow click
             Toast.makeText(this, "Notifications", Toast.LENGTH_LONG).show()
         })
+
+
+//        clickhandler for profile picture
+        profile_image.setOnClickListener(){
+            Toast.makeText(this, "Profile icon pressed", Toast.LENGTH_LONG).show()
+        }
     }
 
 
