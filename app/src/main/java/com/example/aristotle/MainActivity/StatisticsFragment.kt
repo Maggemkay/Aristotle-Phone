@@ -3,12 +3,13 @@ package com.example.aristotle
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_statistics.*
+import androidx.fragment.app.Fragment
+
 
 class StatisticsFragment : Fragment() {
 
