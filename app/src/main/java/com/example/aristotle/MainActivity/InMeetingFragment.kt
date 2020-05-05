@@ -39,6 +39,8 @@ class InMeetingFragment : Fragment() {
     var result = ""
     lateinit var notesTextView: TextView
 
+    var isEditing = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -98,7 +100,7 @@ class InMeetingFragment : Fragment() {
             }
         }
 
-        transcriptionStop.setOnClickListener() {
+        transcriptionStop.setOnClickListener {
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
             builder?.setTitle("Exit Meeting ?")
             builder?.setMessage("You are about to end the current meeting. Are you sure you want to end it?")
@@ -114,16 +116,33 @@ class InMeetingFragment : Fragment() {
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         }
 
+        WriteNotesButton.setOnClickListener {
+            isEditing = true
+            transcriptionTextView.visibility = View.VISIBLE
+            recogniztionStop()
+            transcriptionTextView.setFocusable(true);
+            transcriptionTextView.setFocusableInTouchMode(true);
+            transcriptionTextView.setClickable(true);
+        }
+
         SaveButton.setOnClickListener {
             saveTextToFile()
-    }
+        }
 
-        // Show transcriptions
         TranscriptionsButton.setOnClickListener {
             transcriptionTextView.visibility = View.VISIBLE
         }
 
         InMeeting.setOnClickListener() {
+            if (isEditing) {
+                isEditing = false
+                transcriptionTextView.setFocusable(false)
+                transcriptionTextView.setFocusableInTouchMode(false)
+                transcriptionTextView.setClickable(false)
+                result = transcriptionTextView.text.toString() + "\n"
+                recogniztionStart()
+            }
+
             transcriptionTextView.visibility = View.INVISIBLE
         }
 
@@ -139,20 +158,14 @@ class InMeetingFragment : Fragment() {
     }
 
     private fun saveTextToFile() {
-        // val writeDir = this.context?.filesDir?.path + "/transcriptions/"
-        // var fileName = writeDir + "example.txt"
         val currentDateTime = LocalDateTime.now()
         var extension = ".txt"
         var fileName = this.context?.filesDir?.path + "/" + currentDateTime.format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + extension
 
-
-
         Log.d("Reading data filename", fileName)
 
         var file = File(fileName)
-
-//            Log.d("Reading data BIG BOI TEST", file.bufferedReader().readLines().toString())
 
         // create a new file
         val isNewFileCreated :Boolean = file.createNewFile()
