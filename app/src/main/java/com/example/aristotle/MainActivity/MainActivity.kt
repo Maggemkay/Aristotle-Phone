@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.contacts -> {
-//                fragmentSwitcher(contactsFragment)
-                fragmentSwitcher(viewProfileFragment)
+                fragmentSwitcher(contactsFragment)
+//                fragmentSwitcher(viewProfileFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
