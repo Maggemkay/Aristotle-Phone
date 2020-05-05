@@ -107,6 +107,7 @@ class InMeetingFragment : Fragment() {
             builder?.setPositiveButton("END MEETING") { dialog, which->
                 Toast.makeText(this.context , "Stop Button Pressed , meeting finished" , Toast.LENGTH_SHORT).show()
                 recogniztionStop()
+                saveTextToFile()
             }
             builder?.setNegativeButton("CANCEL") { dialog, which ->
                 Toast.makeText(this.context , "Continuing meeting" , Toast.LENGTH_SHORT).show()
