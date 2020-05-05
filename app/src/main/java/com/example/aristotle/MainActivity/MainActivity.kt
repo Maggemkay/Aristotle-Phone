@@ -118,10 +118,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
     fun View.visible() {
         visibility = View.VISIBLE
     }
