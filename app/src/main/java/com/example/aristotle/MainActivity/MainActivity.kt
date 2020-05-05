@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     // Fragmnent Switcher
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when(item.itemId){
+        when (item.itemId) {
             R.id.calendar -> {
                 fragmentSwitcher(calendarFragment)
                 return@OnNavigationItemSelectedListener true
@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.contacts -> {
-//                fragmentSwitcher(contactsFragment)
-                fragmentSwitcher(viewProfileFragment)
+                fragmentSwitcher(contactsFragment)
+//                fragmentSwitcher(viewProfileFragment)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -53,12 +53,9 @@ class MainActivity : AppCompatActivity() {
 //                return@OnNavigationItemSelectedListener true
 //            }
 
-//            R.id.viewprofile -> {
-//                fragmentSwitcher(viewProfileFragment)
-//                return@OnNavigationItemSelectedListener true
-//            }
-
+            else -> false
         }
+    }
 
     fun fragmentSwitcher(fragment: Fragment) {
         fragmentManager.beginTransaction()
@@ -86,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.fragmentHolderMain, calendarFragment)
         fragmentTransaction.commit()
-    }
 
 //      Setting the action bar in the toolbar's place
         setSupportActionBar(findViewById(R.id.toolbar1))
@@ -120,7 +116,8 @@ class MainActivity : AppCompatActivity() {
 
 //        clickhandler for profile picture
         profile_image.setOnClickListener(){
-            Toast.makeText(this, "Profile icon pressed", Toast.LENGTH_LONG).show()
+            fragmentSwitcher(viewProfileFragment)
+//            Toast.makeText(this, "Profile icon pressed", Toast.LENGTH_LONG).show()
         }
     }
 
