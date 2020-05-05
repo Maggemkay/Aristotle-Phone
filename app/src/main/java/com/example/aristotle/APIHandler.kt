@@ -1,8 +1,11 @@
 package com.example.aristotle
 
+import android.util.Log
 import com.example.aristotle.Models.Session
 import com.example.aristotle.Models.User
 import com.github.kittinunf.fuel.*
+import com.github.kittinunf.fuel.core.Headers
+import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import com.google.gson.Gson
@@ -20,7 +23,7 @@ object APIHandler {
     private val url = "http://" + dotenv["API_IP"] + ":" + dotenv["API_PORT"]
     var token = ""
     var email = ""
-
+    var user: User? = null
 
     object Login {
         suspend fun login(inputEmail: String, inputPassword: String, callback: (Boolean) -> Unit) {
@@ -30,7 +33,7 @@ object APIHandler {
                 when (session.auth) {
                     true -> {
                         token = session.token
-                        email = inputEmail
+                        getLoginUser(token)
                         true
                     }
                     else -> {
@@ -54,7 +57,8 @@ object APIHandler {
             var session = Session(false, "")
 
             result.fold({ data ->
-                session = Session(true, data)
+                val tokenClean = data.drop(1).dropLast(1)
+                session = Session(true, tokenClean)
             }, {
                 print("Failed with login attempt.")
             })
@@ -62,18 +66,33 @@ object APIHandler {
             return session
         }
 
-
-        fun logout(): Boolean {
-            return when (token) {
-                "" -> { false }
-                else -> {
-                    token = ""
-                    email = ""
-                    true
-                }
+        private suspend fun getLoginUser(token: String) {
+            val (req, res, result) = runBlocking {
+                Fuel.get("$url/users/id")
+                    .authentication()
+                    .bearer(token)
+                    .awaitStringResponseResult()
             }
+
+            result.fold({ data ->
+                user = Gson().fromJson(data, User::class.java)
+            }, {
+                print("Failed to get user.")
+            })
         }
 
+
+    }
+
+    fun logout(): Boolean {
+        return when (token) {
+            "" -> { false }
+            else -> {
+                token = ""
+//                email = ""
+                true
+            }
+        }
     }
 
     object Register {
