@@ -69,10 +69,9 @@ class InMeetingFragment : Fragment() {
         animDrawable.setEnterFadeDuration(10)
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
-        
-        // notesTextView = transcriptionTextView as TextView
-        // notesTextView.setMovementMethod(ScrollingMovementMethod())
-        // notesTextView.setText(result)
+        notesTextView = transcriptionTextView as TextView
+        notesTextView.setMovementMethod(ScrollingMovementMethod())
+        notesTextView.setText(result)
         
 
 //        val animDrawable = InMeeting.background as AnimationDrawable
@@ -93,13 +92,13 @@ class InMeetingFragment : Fragment() {
 
         transcriptionStartPause.setOnClickListener() {
             if (pause == false) {
-                PlayPauseButton.setImageResource(R.drawable.resume)
+                transcriptionStartPause.setImageResource(R.drawable.resume)
                 recogniztionStop()
                 Toast.makeText(this.context , "Pause Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = true
             }
             else {
-                PlayPauseButton.setImageResource(R.drawable.pause)
+                transcriptionStartPause.setImageResource(R.drawable.pause)
                 recogniztionStart()
                 Toast.makeText(this.context , "Resume Button Pressed" , Toast.LENGTH_SHORT).show()
                 pause = false
@@ -151,18 +150,6 @@ class InMeetingFragment : Fragment() {
             }
 
             transcriptionTextView.visibility = View.INVISIBLE
-        }
-
-
-        //    Notes handler
-        NotesButton.setOnClickListener(){
-            notesArea.visibility = View.VISIBLE
-        }
-        cancelNotes.setOnClickListener() {
-            notesArea.visibility = View.INVISIBLE
-        }
-        saveNotes.setOnClickListener(){
-            notesArea.visibility = View.INVISIBLE
         }
 
     }
