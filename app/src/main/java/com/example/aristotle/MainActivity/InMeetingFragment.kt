@@ -101,17 +101,34 @@ class InMeetingFragment : Fragment() {
         }
 
         transcriptionStop.setOnClickListener {
+            val builder2 = this.context?.let { it1 -> AlertDialog.Builder(it1) }
+            builder2?.setTitle("Save notes ?")
+            builder2?.setMessage("Do you want to save the transcription of this meeting?")
+            builder2?.setPositiveButton("Yes"){dialog, which->
+                Toast.makeText(this.context , "Transcription saved" , Toast.LENGTH_SHORT).show()
+                saveTextToFile()
+            }
+            builder2?.setNegativeButton("No") { dialog, which ->
+                Toast.makeText(this.context , "Transcription not saved" , Toast.LENGTH_SHORT).show()
+            }
+
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
             builder?.setTitle("Exit Meeting ?")
             builder?.setMessage("You are about to end the current meeting. Are you sure you want to end it?")
             builder?.setPositiveButton("END MEETING") { dialog, which->
                 Toast.makeText(this.context , "Stop Button Pressed , meeting finished" , Toast.LENGTH_SHORT).show()
                 recogniztionStop()
-                saveTextToFile()
+                val dialogNotes: AlertDialog = builder2!!.create()
+                dialogNotes.show()
+                dialogNotes.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+
             }
             builder?.setNegativeButton("CANCEL") { dialog, which ->
                 Toast.makeText(this.context , "Continuing meeting" , Toast.LENGTH_SHORT).show()
             }
+
+
+
             val dialog: AlertDialog = builder!!.create()
             dialog.show()
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
