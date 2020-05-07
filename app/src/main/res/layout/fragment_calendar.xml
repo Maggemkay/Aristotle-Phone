@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calendarLayout"
@@ -9,26 +10,254 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup"
+        android:layout_width="350dp"
+        android:layout_height="216dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/translucent_rectangle"
+        android:elevation="5dp"
+
+        android:visibility="invisible"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/description"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="52dp"
+            android:src="@drawable/notes_lines"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/time"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/access_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <ImageView
+            android:id="@+id/place"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time" />
+
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/Transparent"
+            android:scaleType="center"
+            android:src="@drawable/edit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/popUpMeetingName"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/roboto"
+            android:hint="@string/placeholer_meeting_subject"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+
+            app:layout_constraintStart_toEndOf="@+id/description"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/popUpMeetingTime"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:hint="@string/placeholer_meeting_time"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+
+            app:layout_constraintStart_toEndOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/popUpMeetingName" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/popUpMeetingRoom"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:hint="@string/placeholer_meeting_room"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+
+            app:layout_constraintStart_toEndOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/popUpMeetingTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:translationZ="2dp"
+
+        android:layout_height="320dp"
+        android:layout_marginTop="96dp"
+
+        android:defaultFocusHighlightEnabled="true"
+        android:dividerPadding="50dp"
+        android:hapticFeedbackEnabled="true"
+        app:abbreviationsBarColor="@color/bg"
+        app:abbreviationsLabelsColor="@color/black"
+        app:anotherMonthsDaysLabelsColor="@color/grayText"
+        app:datePicker="true"
+        app:forwardButtonSrc="@drawable/forward_arrow"
+        app:headerColor="@color/bg"
+        app:headerLabelColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:pagesColor="@color/bg"
+        app:previousButtonSrc="@drawable/back_arrow"
+
+        app:selectionColor="@color/colorPrimary"
+        app:todayLabelColor="@color/colorPrimary"
+        app:type="one_day_picker" >
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="#14000000"
+        android:backgroundTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/availableMeeting"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Calendar"
-        android:textColor="@color/colorPrimary"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto"
+        android:text="Today"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="410dp"
-        android:layout_height="322dp"
-        android:layout_marginTop="64dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/availableMeeting"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/calendar_box"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="invisible"
+        android:elevation="4dp"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857">
+
+        <TextView
+            android:id="@+id/meetingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/placeholer_meeting_time"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/meetingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/placeholer_meeting_subject"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/meeting_btn1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_button"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/play_available"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/start"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/noEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/roboto"
+        android:text="No events"
+        android:textColor="#78000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,34 +1,33 @@
 <resources>
 
     <!-- Base application theme. -->
-    // chip choice
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppLoginTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppLoginTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppLoginTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-
+    <style name="AppLoginTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
     <style name="BottomNavigationView">
-        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active</item>
-        <item name="itemTextAppearanceInactive">@style/TextAppearance.BottomNavigationView.Inactive</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active
+        </item>
+        <item name="itemTextAppearanceInactive">
+            @style/TextAppearance.BottomNavigationView.Inactive
+        </item>
     </style>
 
     <!-- blank styles for better code readability-->
-    <style name="TextAppearance"/>
-    <style name="TextAppearance.BottomNavigationView"/>
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.BottomNavigationView" />
 
     <!-- inactive tab icon style -->
     <style name="TextAppearance.BottomNavigationView.Inactive">

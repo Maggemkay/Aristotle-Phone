@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Aristotle</string>
     <string name="new_meeting">New Meeting</string>
@@ -13,4 +14,67 @@
     <string name="add_participants">add participants</string>
 
 
+    <string name="signup">Sign up</string>
+    <string name="uname">Username</string>
+    <string name="fname">First name</string>
+    <string name="lname">Last name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="cancel">CANCEL</string>
+    <string name="signup_button">SIGN UP</string>
+    <string name="login">LOG IN</string>
+    <string name="reset">RESET</string>
+    <string name="reset_password">Reset password</string>
+    <string name="reset_password_text2">We have sent you a reset code on the provided email. Please enter it below to proceed to the next step in reseting your passowrd.</string>
+    <string name="reset_password_text3">Please enter your new password in the fields below.</string>
+    <string name="username">Username</string>
+    <string name="forgotpassword_text">Enter your email address and you will get a link to reset your password.</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="view_transcriptions">View transcriptions</string>
+    <string name="write_notes">write notes</string>
+    <string name="save">save</string>
+    <string name="my_notes">My Notes</string>
+    <string name="placeholer_meeting_subject">Meeting Subject</string>
+    <string name="placeholer_meeting_time">14:00 - 16:00</string>
+    <string name="placeholer_meeting_room">Room No. 202</string>
+    <string name="start">START</string>
+
+    <string name="material_calendar_monday">MON</string>
+    <string name="material_calendar_tuesday">TUE</string>
+    <string name="material_calendar_wednesday">WED</string>
+    <string name="material_calendar_thursday">THU</string>
+    <string name="material_calendar_friday">FRI</string>
+    <string name="material_calendar_saturday">SAT</string>
+    <string name="material_calendar_sunday">SUN</string>
+    <array name="material_calendar_months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </array>
+    <string name="material_calendar_today_button">Today</string>
+    <string name="material_calendar_positive_button">OK</string>
+    <string name="material_calendar_negative_button">Cancel</string>
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="full_name">Full Name</string>
+    <string name="language">Language</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="log_out">Logout</string>
 </resources>
