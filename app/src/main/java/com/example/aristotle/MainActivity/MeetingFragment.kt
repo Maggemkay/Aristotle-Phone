@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.aristotle.MainActivity.MainActivity
 import kotlinx.android.synthetic.main.fragment_meeting.*
 import java.util.*
 
@@ -92,16 +93,14 @@ class MeetingFragment : Fragment() {
         }
 
         buttonNewMeetingBook.setOnClickListener {
-
-            // Save the meeting to file
+            saveMeeting()
 
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
             builder?.setTitle("Your meeting is booked")
             builder?.setMessage("Your meeting have been booked and added to the calendar.")
             builder?.setPositiveButton("Ok") { dialog, which->
-
-                // Change fragment to calendar fragment
-
+                val act = activity as MainActivity
+                act.fragmentSwitcher(act.calendarFragment)
             }
             val dialog: AlertDialog = builder!!.create()
             dialog.show()
@@ -121,6 +120,11 @@ class MeetingFragment : Fragment() {
         endTime.isEnabled = false
         textInputMeetingSubject.isEnabled = false
         textInputLocation.isEnabled = false
+    }
+
+    private fun saveMeeting() {
+        // Save the meeting to local storage
+
     }
 
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.aristotle.*
 import com.example.aristotle.LoginActivity.LoginActivity
@@ -59,6 +60,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun fragmentSwitcher(fragment: Fragment) {
+
+        if (fragment == calendarFragment) {
+            // Set highlight on calendar
+        }
+
         fragmentManager.beginTransaction()
             .replace(R.id.fragmentHolderMain, fragment)
             //.setCustomAnimation(R.anim.slide_in_left, R.anim.slide_out_right)
