@@ -39,4 +39,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="TimePicker">
+       <item name="android:textSize">30dp</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

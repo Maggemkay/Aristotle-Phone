@@ -184,4 +184,136 @@
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+    <Button
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/roboto"
+        android:elevation="0dp"
+        android:text="Set the time"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setter"
+        android:layout_width="370dp"
+        android:layout_height="580dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+
+        android:visibility="invisible"
+
+        android:background="@drawable/round_layout_bg"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarViewSet"
+            android:layout_width="330dp"
+            android:layout_height="315dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:defaultFocusHighlightEnabled="true"
+            android:dividerPadding="50dp"
+            android:hapticFeedbackEnabled="true"
+            android:translationZ="2dp"
+
+
+            app:abbreviationsBarColor="#E2E2E2"
+            app:abbreviationsLabelsColor="@color/black"
+            app:anotherMonthsDaysLabelsColor="@color/grayText"
+
+            app:datePicker="true"
+            app:forwardButtonSrc="@drawable/forward_arrow"
+
+            app:headerColor="#E2E2E2"
+            app:headerLabelColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pagesColor="#E2E2E2"
+            app:previousButtonSrc="@drawable/back_arrow"
+            app:selectionColor="@color/colorPrimary"
+            app:todayLabelColor="@color/colorPrimary"
+            app:type="one_day_picker">
+
+        </com.applandeo.materialcalendarview.CalendarView>
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="182dp"
+            android:layout_height="219dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="332dp"
+            android:hapticFeedbackEnabled="true"
+            android:numbersTextColor="@color/black"
+            android:scaleX="1.8"
+            android:scaleY="1.15"
+            android:theme="@style/TimePicker"
+
+            android:timePickerMode="spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/cancelTime"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@color/Transparent"
+            android:elevation="0dp"
+            android:text="cancel"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/doneTime"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/Transparent"
+            android:elevation="0dp"
+            android:text="done"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="310dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/timePicker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/doneTime"
+            app:layout_constraintStart_toEndOf="@+id/cancelTime" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

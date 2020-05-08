@@ -55,4 +55,7 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.4.0' // Custom Calendar
 
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Round image view
+
+    implementation 'com.applandeo:material-calendar-view:1.4.0' //Calendar View
+
 }
