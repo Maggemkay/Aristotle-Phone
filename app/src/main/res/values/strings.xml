@@ -67,40 +67,6 @@
     <string name="material_calendar_positive_button">OK</string>
     <string name="material_calendar_negative_button">Cancel</string>
 
-
-
-
-
-
-
-
-
-    <string name="material_calendar_monday">MON</string>
-    <string name="material_calendar_tuesday">TUE</string>
-    <string name="material_calendar_wednesday">WED</string>
-    <string name="material_calendar_thursday">THU</string>
-    <string name="material_calendar_friday">FRI</string>
-    <string name="material_calendar_saturday">SAT</string>
-    <string name="material_calendar_sunday">SUN</string>
-    <array name="material_calendar_months_array">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </array>
-
-
-
-
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_picture">Profile Picture</string>
