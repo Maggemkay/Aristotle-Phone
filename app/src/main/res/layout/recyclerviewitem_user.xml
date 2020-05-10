@@ -13,12 +13,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_gravity="center_vertical|left"
-            android:outlineAmbientShadowColor="#FFFFFF"
-            app:srcCompat="@drawable/tom" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:src="@drawable/tom" />
 
         <TextView
             android:id="@+id/UserItemName"
