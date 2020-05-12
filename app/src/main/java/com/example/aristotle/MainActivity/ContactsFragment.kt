@@ -23,7 +23,7 @@ class ContactsFragment : Fragment() {
 
     private lateinit var usersRecyclerView: androidx.recyclerview.widget.RecyclerView
 
-    private var userList: List<User> = listOf<User>()
+    private var userList: MutableList<User> = mutableListOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +52,21 @@ class ContactsFragment : Fragment() {
 
 
     private fun saveUsers(){
-        val user = listOf<User>(
-            User("1", "Bobus", "", "cool@email1", "Bob", "Foo"),
-            User("3", "Kobus", "", "cool@email2", "Bart", "Baz"),
-            User("2", "Fobus", "", "cool@email3", "Lisa", "Bar")
-        )
+      //  val user = listOf<User>(
+        //    User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus")
+       // )
+
+        // Add new users through the "userList.add()" below.
+        userList.add(User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus"))
         val writer: Writer = FileWriter(this.context?.filesDir?.path + "/Users.json" )
-        Gson().toJson(user, writer)
+        Gson().toJson(userList, writer)
         writer.close()
     }
 
-    private fun loadUsers() : List<User> {
+    private fun loadUsers() : MutableList<User> {
         val reader: Reader = FileReader(this.context?.filesDir?.path + "/Users.json")
         val REVIEW_TYPE: Type = object : TypeToken<List<User?>?>() {}.type
-        val jsonUsers : List<User> =
+        val jsonUsers : MutableList<User> =
             Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
 
         reader.close()
