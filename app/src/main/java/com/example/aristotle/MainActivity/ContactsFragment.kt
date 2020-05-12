@@ -56,8 +56,12 @@ class ContactsFragment : Fragment() {
         //    User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus")
        // )
 
+        val user = User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus")
+
         // Add new users through the "userList.add()" below.
-        userList.add(User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus"))
+        // TODO: Check if user already exists in the list to avoid duplicates
+        if (!userList.contains(user))
+            userList.add(user)
         val writer: Writer = FileWriter(this.context?.filesDir?.path + "/Users.json" )
         Gson().toJson(userList, writer)
         writer.close()
