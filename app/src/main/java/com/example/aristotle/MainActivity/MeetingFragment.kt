@@ -119,6 +119,19 @@ class MeetingFragment : Fragment() {
             currentSelected.set(Calendar.HOUR, timePicker.hour)
             currentSelected.set(Calendar.MINUTE, timePicker.minute)
 
+            Log.d("Selected year", currentSelected.get(Calendar.YEAR).toString())
+            Log.d("Selected month", currentSelected.get(Calendar.MONTH).toString())
+            Log.d("Selected day", currentSelected.get(Calendar.DAY_OF_MONTH).toString())
+            Log.d("Selected hour", currentSelected.get(Calendar.HOUR_OF_DAY).toString())
+            Log.d("Selected minute", currentSelected.get(Calendar.MINUTE).toString())
+
+            if(currentSelected == startTimeSelected) {
+                startTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+            } else if (currentSelected == endTimeSelected) {
+                endTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+
+            }
+
             activateElements()
         }
 
