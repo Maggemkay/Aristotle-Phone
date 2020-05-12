@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aristotle.MainActivity.Adapters.UsersRecyclerViewAdapter
 import com.example.aristotle.Models.User
 import com.google.gson.Gson
-import java.io.File
+import com.google.gson.reflect.TypeToken
+import java.io.FileReader
 import java.io.FileWriter
+import java.io.Reader
 import java.io.Writer
+import java.lang.reflect.Type
 
 
 class ContactsFragment : Fragment() {
@@ -47,7 +50,7 @@ class ContactsFragment : Fragment() {
 
 
     private fun saveUsers(){
-        val user = User("1", "Bobus", "abc", "cool@email", "Bob", "Foo")
+        val user = User("2", "Bobus", "abc", "cool@email", "Bob2", "Foo")
         val writer: Writer = FileWriter(this.context?.filesDir?.path + "/Users.json" )
         Gson().toJson(user, writer)
         writer.close()
@@ -55,6 +58,12 @@ class ContactsFragment : Fragment() {
 
     private fun loadUsers() : List<User> {
         // Load users from local storage
+        val reader: Reader = FileReader(this.context?.filesDir?.path + "/Users.json")
+        val REVIEW_TYPE: Type = object : TypeToken<List<User?>?>() {}.type
+        val users: List<User> =
+            Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
+
+        reader.close()
 
         val madeUpUsers = listOf<User>(
             User("1", "Bobus", "abc", "cool@email", "Bob", "Foo"),
