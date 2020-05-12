@@ -11,6 +11,7 @@ import com.example.aristotle.MainActivity.Adapters.UsersRecyclerViewAdapter
 import com.example.aristotle.Models.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_viewcontact.*
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.Reader
@@ -22,13 +23,20 @@ import java.io.*
 class ContactsFragment : Fragment() {
 
     private lateinit var usersRecyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var userRecyclerViewAdapter: UsersRecyclerViewAdapter
 
     private var userList: MutableList<User> = mutableListOf<User>()
 
+    private lateinit var pathToUserFile : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pathToUserFile = this.context?.filesDir?.path + "/Users.json"
+
         // Get the local users
         userList = loadUsers()
+
+        userRecyclerViewAdapter = UsersRecyclerViewAdapter(userList)
     }
 
     override fun onCreateView(
@@ -36,7 +44,6 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        saveUsers()
 
         return inflater.inflate(R.layout.fragment_viewcontact, container, false)
     }
@@ -46,34 +53,44 @@ class ContactsFragment : Fragment() {
 
         usersRecyclerView = view.findViewById(R.id.UsersRecyclerView)
         usersRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        usersRecyclerView.adapter = UsersRecyclerViewAdapter(userList)
+        usersRecyclerView.adapter = userRecyclerViewAdapter
         usersRecyclerView.hasFixedSize()
+
+        addContactButton.setOnClickListener {
+            // Add new user
+
+            saveUsers(User("", "New user", "", "cool@email1", "New", "a")) // Remove later
+            userRecyclerViewAdapter.updateList(userList)
+        }
     }
 
 
-    private fun saveUsers(){
-      //  val user = listOf<User>(
-        //    User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus")
-       // )
+    private fun saveUsers(newUser: User){
+        var usersJson = loadUsers()
 
-        val user = User("4", "Pläppus", "", "pelleP@email1", "Bängus", "Pungus")
-
-        // Add new users through the "userList.add()" below.
-        // TODO: Check if user already exists in the list to avoid duplicates
-        if (!userList.contains(user))
-            userList.add(user)
-        val writer: Writer = FileWriter(this.context?.filesDir?.path + "/Users.json" )
-        Gson().toJson(userList, writer)
+        if (!usersJson.contains(newUser)) {
+            usersJson.add(newUser)
+            userList.add(newUser)
+        }
+        val writer: Writer = FileWriter(pathToUserFile)
+        Gson().toJson(usersJson, writer)
         writer.close()
     }
 
     private fun loadUsers() : MutableList<User> {
-        val reader: Reader = FileReader(this.context?.filesDir?.path + "/Users.json")
-        val REVIEW_TYPE: Type = object : TypeToken<List<User?>?>() {}.type
-        val jsonUsers : MutableList<User> =
-            Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
+        var jsonUsers = mutableListOf<User>()
 
-        reader.close()
+        try {
+            val reader: Reader = FileReader(pathToUserFile)
+            val REVIEW_TYPE : Type = object : TypeToken<List<User?>?>() {}.type
+            jsonUsers = Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
+            reader.close()
+        } catch (e : FileNotFoundException) {
+            val writer: Writer = FileWriter(pathToUserFile)
+            Gson().toJson(jsonUsers, writer)
+            writer.close()
+        }
+
         return jsonUsers
     }
 

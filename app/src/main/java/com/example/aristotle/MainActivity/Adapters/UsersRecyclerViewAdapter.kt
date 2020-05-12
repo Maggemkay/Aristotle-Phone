@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.Models.User
 import com.example.aristotle.R
 
-class UsersRecyclerViewAdapter(private val usersData: List<User>) : RecyclerView.Adapter<UsersRecyclerViewAdapter.UserViewHolder>() {
+class UsersRecyclerViewAdapter(private var usersData: List<User>) : RecyclerView.Adapter<UsersRecyclerViewAdapter.UserViewHolder>() {
 
     class UserViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.UserItemName)
@@ -26,4 +26,9 @@ class UsersRecyclerViewAdapter(private val usersData: List<User>) : RecyclerView
     }
 
     override fun getItemCount() = usersData.size
+
+    fun updateList(newUserList: List<User>) {
+        usersData = newUserList
+        notifyDataSetChanged()
+    }
 }
