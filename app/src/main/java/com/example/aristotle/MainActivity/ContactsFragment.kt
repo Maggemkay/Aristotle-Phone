@@ -23,12 +23,10 @@ class ContactsFragment : Fragment() {
 
     private lateinit var usersRecyclerView: androidx.recyclerview.widget.RecyclerView
 
-    lateinit var userList: List<User>
+    private var userList: List<User> = listOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        saveUsers()
         // Get the local users
         userList = loadUsers()
     }
@@ -38,7 +36,7 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        saveUsers()
+        saveUsers()
 
         return inflater.inflate(R.layout.fragment_viewcontact, container, false)
     }
