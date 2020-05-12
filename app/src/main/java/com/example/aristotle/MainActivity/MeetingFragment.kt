@@ -52,6 +52,8 @@ class MeetingFragment : Fragment() {
         timePicker.setIs24HourView(true)
         calendarViewSet.showCurrentMonthPage()
 
+        clickedParticipants = mutableListOf<User>()
+
         participantChipGroup = participantsChipGroupView
 
         val users = loadUsers()
@@ -116,8 +118,6 @@ class MeetingFragment : Fragment() {
                 "Selected time " + timePicker.hour.toString().padStart(2, '0') + ":" + timePicker.minute.toString().padStart(2, '0') ,
                 Toast.LENGTH_SHORT
             ).show()
-            currentSelected.set(Calendar.HOUR, timePicker.hour)
-            currentSelected.set(Calendar.MINUTE, timePicker.minute)
 
             Log.d("Selected year", currentSelected.get(Calendar.YEAR).toString())
             Log.d("Selected month", currentSelected.get(Calendar.MONTH).toString())
@@ -126,9 +126,9 @@ class MeetingFragment : Fragment() {
             Log.d("Selected minute", currentSelected.get(Calendar.MINUTE).toString())
 
             if(currentSelected == startTimeSelected) {
-                startTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+                startTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + (currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
             } else if (currentSelected == endTimeSelected) {
-                endTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+                endTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  +(currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
 
             }
 
@@ -136,10 +136,9 @@ class MeetingFragment : Fragment() {
         }
 
         calendarViewSet.setOnDayClickListener { eventDay ->
-            val clickedDayCalendar: Calendar = eventDay.calendar
-            currentSelected.set(Calendar.YEAR, clickedDayCalendar.get(Calendar.YEAR))
-            currentSelected.set(Calendar.MONTH, clickedDayCalendar.get(Calendar.MONTH))
-            currentSelected.set(Calendar.DAY_OF_MONTH, clickedDayCalendar.get(Calendar.DAY_OF_MONTH))
+            currentSelected.set(Calendar.YEAR, eventDay.calendar.get(Calendar.YEAR))
+            currentSelected.set(Calendar.MONTH, eventDay.calendar.get(Calendar.MONTH))
+            currentSelected.set(Calendar.DAY_OF_MONTH, eventDay.calendar.get(Calendar.DAY_OF_MONTH))
         }
 
         buttonNewMeetingBook.setOnClickListener {

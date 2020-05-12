@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         if (fragment == calendarFragment) {
             // Set highlight on calendar
-        }
+    }
 
         fragmentManager.beginTransaction()
             .replace(R.id.fragmentHolderMain, fragment)
