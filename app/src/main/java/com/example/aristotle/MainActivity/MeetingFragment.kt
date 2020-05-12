@@ -82,6 +82,13 @@ class MeetingFragment : Fragment() {
             Log.d("Selected hour", currentSelected.get(Calendar.HOUR_OF_DAY).toString())
             Log.d("Selected minute", currentSelected.get(Calendar.MINUTE).toString())
 
+            if(currentSelected == startTimeSelected) {
+                startTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+            } else if (currentSelected == endTimeSelected) {
+                endTime.setText(currentSelected.get(Calendar.HOUR_OF_DAY).toString() + ':' + currentSelected.get(Calendar.MINUTE).toString() + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + currentSelected.get(Calendar.MONTH).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+
+            }
+
             activateElements()
         }
 

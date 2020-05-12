@@ -150,29 +150,42 @@
         app:layout_constraintTop_toBottomOf="@+id/endTime" />
 
 
-    <Button
+<!--    <Button-->
+<!--        android:id="@+id/startTime"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="@string/startTime"-->
+<!--        android:fontFamily="@font/roboto"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/view2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/view2" />-->
+
+
+    <TextView
         android:id="@+id/startTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/startTime"
-        android:fontFamily="@font/roboto"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-    <Button
-        android:id="@+id/endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/endTime"
-        android:fontFamily="@font/roboto"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/startTime"
-        app:layout_constraintTop_toBottomOf="@+id/startTime" />
+    <!--    <Button-->
+<!--        android:id="@+id/endTime"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="@string/endTime"-->
+<!--        android:fontFamily="@font/roboto"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/startTime"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/startTime" />-->
 
 <!--    <Button-->
 <!--        android:id="@+id/time"-->
@@ -185,6 +198,18 @@
 <!--        android:textSize="16sp"-->
 <!--        android:textStyle="bold"-->
 <!--        tools:layout_editor_absoluteY="546dp" />-->
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/endTime"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startTime" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip"
