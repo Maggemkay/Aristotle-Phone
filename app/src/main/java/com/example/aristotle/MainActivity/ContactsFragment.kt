@@ -1,6 +1,7 @@
 package com.example.aristotle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import java.io.FileWriter
 import java.io.Reader
 import java.io.Writer
 import java.lang.reflect.Type
+import java.io.*
 
 
 class ContactsFragment : Fragment() {
@@ -26,6 +28,7 @@ class ContactsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        saveUsers()
         // Get the local users
         userList = loadUsers()
     }
@@ -35,7 +38,8 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        saveUsers()
+//        saveUsers()
+
         return inflater.inflate(R.layout.fragment_viewcontact, container, false)
     }
 
@@ -50,28 +54,24 @@ class ContactsFragment : Fragment() {
 
 
     private fun saveUsers(){
-        val user = User("2", "Bobus", "abc", "cool@email", "Bob2", "Foo")
+        val user = listOf<User>(
+            User("1", "Bobus", "", "cool@email1", "Bob", "Foo"),
+            User("3", "Kobus", "", "cool@email2", "Bart", "Baz"),
+            User("2", "Fobus", "", "cool@email3", "Lisa", "Bar")
+        )
         val writer: Writer = FileWriter(this.context?.filesDir?.path + "/Users.json" )
         Gson().toJson(user, writer)
         writer.close()
     }
 
     private fun loadUsers() : List<User> {
-        // Load users from local storage
         val reader: Reader = FileReader(this.context?.filesDir?.path + "/Users.json")
         val REVIEW_TYPE: Type = object : TypeToken<List<User?>?>() {}.type
-        val users: List<User> =
+        val jsonUsers : List<User> =
             Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
 
         reader.close()
-
-        val madeUpUsers = listOf<User>(
-            User("1", "Bobus", "abc", "cool@email", "Bob", "Foo"),
-            User("3", "Kobus", "abc", "cool@email", "Bart", "Baz"),
-            User("2", "Fobus", "abc", "cool@email", "Lisa", "Bar")
-        )
-
-        return madeUpUsers
+        return jsonUsers
     }
 
 }
