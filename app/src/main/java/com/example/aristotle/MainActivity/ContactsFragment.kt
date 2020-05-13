@@ -72,22 +72,6 @@ class ContactsFragment : Fragment() {
         userList = loadUsers()
         userRecyclerViewAdapter.updateList(userList)
     }
-    
-    private fun saveUsers(newUser: User){
-        userList = loadUsers()
-
-        if (userList.contains(newUser)) {
-            //TODO: User already exists message
-        }
-        else
-        {
-            userList.add(newUser)
-            val writer: Writer = FileWriter(pathToUserFile)
-            Gson().toJson(userList, writer)
-            writer.close()
-        }
-
-    }
 
     private fun loadUsers() : MutableList<User> {
         var jsonUsers = mutableListOf<User>()
