@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aristotle.MainActivity.Adapters.UsersRecyclerViewAdapter
+import com.example.aristotle.MainActivity.MainActivity
 import com.example.aristotle.Models.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_addcontact.*
 import kotlinx.android.synthetic.main.fragment_viewcontact.*
 import java.io.FileReader
 import java.io.FileWriter
@@ -44,7 +46,6 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_viewcontact, container, false)
     }
 
@@ -59,12 +60,19 @@ class ContactsFragment : Fragment() {
         addContactButton.setOnClickListener {
             // Add new user
 
-            saveUsers(User("", "New user", "", "cool@email1", "New", "a")) // Remove later
-            userRecyclerViewAdapter.updateList(userList)
+//            saveUsers(User("", "New user", "", "cool@email1", "New", "a")) // Remove later
+
+            val act = activity as MainActivity
+            act.fragmentSwitcher(act.addContactFragment)
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        userList = loadUsers()
+        userRecyclerViewAdapter.updateList(userList)
+    }
+    
     private fun saveUsers(newUser: User){
         userList = loadUsers()
 
