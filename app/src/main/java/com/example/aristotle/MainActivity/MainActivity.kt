@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     val inMeetingFragment = InMeetingFragment()
     val changePasswordFragment = ChangePasswordFragment()
     val viewProfileFragment = ViewProfileFragment()
+    val addContactFragment = AddContactFragment()
 
     // Fragmnent Switcher
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
