@@ -11,7 +11,10 @@ import com.example.aristotle.Models.Meeting
 class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
 
     class MeetingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.MeetingRecyclerViewItem)
+        val meeting_title: TextView = itemView.findViewById(R.id.Title_subject)
+        val start_time: TextView = itemView.findViewById(R.id.notes)
+        val end_time: TextView = itemView.findViewById(R.id.transcription)
+        val participants: TextView = itemView.findViewById(R.id.attendance)
     }
 
     // Create new views (invoked by the layout manager)
@@ -20,15 +23,20 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
     }
 
     override fun onBindViewHolder(holder: MeetingViewHolder, position: Int) {
-        val fullName = meetingData[position].firstName + " " + meetingData[position].lastName
-
-        holder.name.text = fullName
+        val meetingTitle = meetingData[position].subject
+        holder.meeting_title.text = meetingTitle
+        val meetingStartTime = meetingData[position].startTime.toString()
+        holder.start_time.text = meetingStartTime
+        val meetingEndTime = meetingData[position].endTime.toString()
+        holder.end_time.text = meetingEndTime
+        val meetingParticipants = meetingData[position].participants.toString()
+        holder.participants.text = meetingParticipants
     }
 
-    override fun getItemCount() = usersData.size
+    override fun getItemCount() = meetingData.size
 
-    fun updateList(newUserList: List<User>) {
-        usersData = newUserList
+    fun updateList(newMeetingList: List<Meeting>) {
+        meetingData = newMeetingList
         notifyDataSetChanged()
     }
 }
