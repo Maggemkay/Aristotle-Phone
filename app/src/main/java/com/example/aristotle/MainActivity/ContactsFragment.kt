@@ -66,15 +66,19 @@ class ContactsFragment : Fragment() {
 
 
     private fun saveUsers(newUser: User){
-        var usersJson = loadUsers()
+        userList = loadUsers()
 
-        if (!usersJson.contains(newUser)) {
-            usersJson.add(newUser)
-            userList.add(newUser)
+        if (userList.contains(newUser)) {
+            //TODO: User already exists message
         }
-        val writer: Writer = FileWriter(pathToUserFile)
-        Gson().toJson(usersJson, writer)
-        writer.close()
+        else
+        {
+            userList.add(newUser)
+            val writer: Writer = FileWriter(pathToUserFile)
+            Gson().toJson(userList, writer)
+            writer.close()
+        }
+
     }
 
     private fun loadUsers() : MutableList<User> {
