@@ -7,33 +7,315 @@
     android:layout_height="match_parent"
     tools:context=".MeetingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/newMeeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="Meeting"
-        android:textColor="@color/colorPrimary"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="28dp"
+        android:text="@string/new_meeting"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="374dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#858181"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newMeeting" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputMeetingSubject"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/meetingSubject"
+        app:boxBackgroundColor="#ffffff"
+        app:boxBackgroundMode="filled"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextMeetingSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLocation"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/location"
+        app:boxBackgroundColor="#ffffff"
+        app:boxBackgroundMode="filled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputMeetingSubject">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="284dp"
+        android:text="@string/AddParticipants"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textInputLocation"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="166dp"
-        android:src="@drawable/tom"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/add_participants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        android:contentDescription="@string/add_participants" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/participantsChipGroupView"
+            style="@style/Widget.MaterialComponents.ChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true">
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/selectTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/selectTime"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="374dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#858181"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectTime" />
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="300dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/startTime"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:gravity="bottom|left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="0.5dp"
+        android:background="#858181"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/startTime"
+        app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="300dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/endTime"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:gravity="bottom|left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="0.5dp"
+        android:background="#858181"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/endTime"
+        app:layout_constraintTop_toBottomOf="@+id/endTime" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonNewMeetingBook"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/book"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/setter"
+    android:layout_width="370dp"
+    android:layout_height="580dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="4dp"
+
+    android:background="@drawable/round_layout_bg"
+
+    android:elevation="2dp"
+    android:visibility="invisible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent">
+
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarViewSet"
+        android:layout_width="330dp"
+        android:layout_height="315dp"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:defaultFocusHighlightEnabled="true"
+        android:dividerPadding="50dp"
+        android:hapticFeedbackEnabled="true"
+        android:translationZ="2dp"
+
+
+        app:abbreviationsBarColor="#E2E2E2"
+        app:abbreviationsLabelsColor="@color/black"
+        app:anotherMonthsDaysLabelsColor="@color/grayText"
+
+        app:datePicker="true"
+        app:forwardButtonSrc="@drawable/forward_arrow"
+
+        app:headerColor="#E2E2E2"
+        app:headerLabelColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pagesColor="#E2E2E2"
+        app:previousButtonSrc="@drawable/back_arrow"
+        app:selectionColor="@color/colorPrimary"
+        app:todayLabelColor="@color/colorPrimary"
+        app:type="one_day_picker">
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="182dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="332dp"
+        android:hapticFeedbackEnabled="true"
+        android:numbersTextColor="@color/black"
+        android:scaleX="1.8"
+        android:scaleY="1.15"
+        android:theme="@style/TimePicker"
+
+        android:timePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cancelTime"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/Transparent"
+        android:elevation="0dp"
+        android:text="cancel"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/doneTime"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/Transparent"
+        android:elevation="0dp"
+        android:text="done"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="310dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/timePicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="1dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/doneTime"
+        app:layout_constraintStart_toEndOf="@+id/cancelTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

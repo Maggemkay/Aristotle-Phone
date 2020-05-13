@@ -1,8 +1,11 @@
 package com.example.aristotle
 
+import android.util.Log
 import com.example.aristotle.Models.Session
 import com.example.aristotle.Models.User
 import com.github.kittinunf.fuel.*
+import com.github.kittinunf.fuel.core.Headers
+import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import com.google.gson.Gson
@@ -20,81 +23,102 @@ object APIHandler {
     private val url = "http://" + dotenv["API_IP"] + ":" + dotenv["API_PORT"]
     var token = ""
     var email = ""
+    var user: User? = null
 
+    object Login {
+        suspend fun login(inputEmail: String, inputPassword: String, callback: (Boolean) -> Unit) {
+            val session = loginRequest(inputEmail, inputPassword)
 
-    suspend fun login(email: String, password: String, callback: (Boolean) -> Unit) {
-        val session = loginRequest(email, password)
-
-        callback(
-            when (session.auth) {
-                true -> {
-                    this.token = session.token
-                    this.email = email
-                    true
+            callback(
+                when (session.auth) {
+                    true -> {
+                        token = session.token
+                        getLoginUser(token)
+                        true
+                    }
+                    else -> {
+                        token = ""
+                        false
+                    }
                 }
-                else -> {
-                    token = ""
-                    false
-                }
-            }
-        )
-    }
+            )
+        }
 
-
-    suspend fun loginRequest(email: String, password: String): Session {
-        val (_, _, result) = runBlocking {
-            Fuel.post("$url/")
-                .jsonBody("""{
+        private suspend fun loginRequest(email: String, password: String): Session {
+            val (_, _, result) = runBlocking {
+                Fuel.post("$url/")
+                    .jsonBody("""{
                     "email": "$email",
                     "password": "$password"
                     }""")
-                .awaitStringResponseResult()
+                    .awaitStringResponseResult()
+            }
+
+            var session = Session(false, "")
+
+            result.fold({ data ->
+                val tokenClean = data.drop(1).dropLast(1)
+                session = Session(true, tokenClean)
+            }, {
+                print("Failed with login attempt.")
+            })
+
+            return session
         }
 
-        var session = Session(false, "")
+        private suspend fun getLoginUser(token: String) {
+            val (req, res, result) = runBlocking {
+                Fuel.get("$url/users/id")
+                    .authentication()
+                    .bearer(token)
+                    .awaitStringResponseResult()
+            }
 
-        result.fold({ data ->
-            session = Session(true, data)
-        }, {
-            print("Failed with login attempt.")
-        })
+            result.fold({ data ->
+                user = Gson().fromJson(data, User::class.java)
+            }, {
+                print("Failed to get user.")
+            })
+        }
 
-        return session
+
     }
-
 
     fun logout(): Boolean {
         return when (token) {
             "" -> { false }
             else -> {
                 token = ""
-                email = ""
+//                email = ""
                 true
             }
         }
     }
 
+    object Register {
 
-    suspend fun registerRequest(user: User): Boolean {
-        val (_, _, result) = run {
-            Fuel.post("$url/users/")
-                .jsonBody(Gson().toJson(user))
-                .awaitStringResponseResult()
+        suspend fun register(user: User, callback: (successful: Boolean) -> Unit) {
+            callback(
+                when (registerRequest(user)) {
+                    false -> {
+                        print("Registration failed!"); false
+                    }
+                    else -> {
+                        true
+                    }
+                }
+            )
         }
-        return result.fold({ true }, { error -> print(error.message); false })
-    }
 
-
-    suspend fun register(user: User, callback: (successful: Boolean) -> Unit) {
-        callback(
-            when (registerRequest(user)) {
-                false -> {
-                    print("Registration failed!"); false
-                }
-                else -> {
-                    true
-                }
+        private suspend fun registerRequest(user: User): Boolean {
+            val (_, _, result) = run {
+                Fuel.post("$url/users")
+                    .jsonBody(Gson().toJson(user))
+                    .awaitStringResponseResult()
             }
-        )
+            return result.fold({ true }, { error -> print(error.message); false })
+        }
     }
+
 }
+
