@@ -45,12 +45,17 @@ class AddContactFragment : Fragment() {
     }
 
     private fun saveUsers(newUser: User){
-        var usersJson = loadUsers()
+        val userList = loadUsers()
 
-        if (!usersJson.contains(newUser)) {
-            usersJson.add(newUser)
+        if (userList.contains(newUser)) {
+            //TODO: User already exists message
+            print("Already exists")
+        }
+        else
+        {
+            userList.add(newUser)
             val writer: Writer = FileWriter(pathToUserFile)
-            Gson().toJson(usersJson, writer)
+            Gson().toJson(userList, writer)
             writer.close()
         }
     }

@@ -31,4 +31,13 @@ class User(
             else -> Pair(true, "")
         }
     }
+
+    override fun equals(other: Any?): Boolean{
+        other as User
+        if (this.id == other.id && this.username == other.username &&
+                this.email == other.email && this.firstName == other.firstName &&
+                this.lastName == other.lastName) return true
+        return false
+    }
+
 }

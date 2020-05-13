@@ -90,7 +90,6 @@ class ContactsFragment : Fragment() {
         userRecyclerViewAdapter.updateList(userList)
     }
 
-
     private fun loadUsers() : MutableList<User> {
         var jsonUsers = mutableListOf<User>()
 
