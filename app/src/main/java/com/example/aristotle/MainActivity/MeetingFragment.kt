@@ -135,11 +135,11 @@ class MeetingFragment : Fragment() {
             activateElements()
         }
 
-        calendarViewSet.setOnDayClickListener { eventDay ->
-            currentSelected.set(Calendar.YEAR, eventDay.calendar.get(Calendar.YEAR))
-            currentSelected.set(Calendar.MONTH, eventDay.calendar.get(Calendar.MONTH))
-            currentSelected.set(Calendar.DAY_OF_MONTH, eventDay.calendar.get(Calendar.DAY_OF_MONTH))
-        }
+//        calendarViewSet.setOnDayClickListener { eventDay ->
+//            currentSelected.set(Calendar.YEAR, eventDay.calendar.get(Calendar.YEAR))
+//            currentSelected.set(Calendar.MONTH, eventDay.calendar.get(Calendar.MONTH))
+//            currentSelected.set(Calendar.DAY_OF_MONTH, eventDay.calendar.get(Calendar.DAY_OF_MONTH))
+//        }
 
         buttonNewMeetingBook.setOnClickListener {
             val newMeeting = Meeting(
@@ -170,6 +170,7 @@ class MeetingFragment : Fragment() {
         endTime.isEnabled = true
         textInputMeetingSubject.isEnabled = true
         textInputLocation.isEnabled = true
+        buttonNewMeetingBook.isEnabled = true
     }
 
     private fun deactivateElements() {
@@ -177,6 +178,7 @@ class MeetingFragment : Fragment() {
         endTime.isEnabled = false
         textInputMeetingSubject.isEnabled = false
         textInputLocation.isEnabled = false
+        buttonNewMeetingBook.isEnabled = false
     }
 
     private fun saveMeeting(newMeeting: Meeting) {
