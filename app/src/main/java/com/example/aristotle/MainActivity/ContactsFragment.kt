@@ -1,10 +1,13 @@
 package com.example.aristotle
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aristotle.MainActivity.Adapters.UsersRecyclerViewAdapter
@@ -28,6 +31,7 @@ class ContactsFragment : Fragment() {
     private lateinit var userRecyclerViewAdapter: UsersRecyclerViewAdapter
 
     private var userList: MutableList<User> = mutableListOf<User>()
+    private var searchUserList: MutableList<User> = mutableListOf<User>()
 
     private lateinit var pathToUserFile : String
 
@@ -57,11 +61,23 @@ class ContactsFragment : Fragment() {
         usersRecyclerView.adapter = userRecyclerViewAdapter
         usersRecyclerView.hasFixedSize()
 
+
+        searchContactsField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.isNullOrBlank()) {
+                    searchUserList = userList.filter { (it.firstName + it.lastName).startsWith(s) } as MutableList<User>
+                    userRecyclerViewAdapter.updateList(searchUserList)
+                }
+                else
+                    userRecyclerViewAdapter.updateList(userList)
+            }
+        })
+
         addContactButton.setOnClickListener {
-            // Add new user
-
-//            saveUsers(User("", "New user", "", "cool@email1", "New", "a")) // Remove later
-
             val act = activity as MainActivity
             act.fragmentSwitcher(act.addContactFragment)
         }
@@ -70,21 +86,10 @@ class ContactsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         userList = loadUsers()
+        searchUserList = userList
         userRecyclerViewAdapter.updateList(userList)
     }
 
-
-//    private fun saveUsers(newUser: User){
-//        var usersJson = loadUsers()
-//
-//        if (!usersJson.contains(newUser)) {
-//            usersJson.add(newUser)
-//            userList.add(newUser)
-//        }
-//        val writer: Writer = FileWriter(pathToUserFile)
-//        Gson().toJson(usersJson, writer)
-//        writer.close()
-//    }
 
     private fun loadUsers() : MutableList<User> {
         var jsonUsers = mutableListOf<User>()
