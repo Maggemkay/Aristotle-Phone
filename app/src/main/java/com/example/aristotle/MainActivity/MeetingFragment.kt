@@ -80,6 +80,7 @@ class MeetingFragment : Fragment() {
             setter.visibility = View.VISIBLE
             setter.startAnimation(animation)
             deactivateElements()
+            Log.d("Meeting", "start time clicked")
 
             currentSelected = startTimeSelected
 
@@ -91,6 +92,8 @@ class MeetingFragment : Fragment() {
             setter.visibility = View.VISIBLE
             setter.startAnimation(animation)
             deactivateElements()
+
+            Log.d("Meeting", "end time clicked")
 
             currentSelected = endTimeSelected
         }
@@ -125,11 +128,12 @@ class MeetingFragment : Fragment() {
             Log.d("Selected hour", currentSelected.get(Calendar.HOUR_OF_DAY).toString())
             Log.d("Selected minute", currentSelected.get(Calendar.MINUTE).toString())
 
-            if(currentSelected == startTimeSelected) {
+            if(currentSelected.equals(startTimeSelected)) {
+                Log.d("cal", "starttime")
                 startTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + (currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
-            } else if (currentSelected == endTimeSelected) {
+            } else {
+                Log.d("cal", "endtime")
                 endTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  +(currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
-
             }
 
             activateElements()

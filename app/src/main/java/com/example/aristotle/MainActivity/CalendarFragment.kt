@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
+import com.example.aristotle.MainActivity.Adapters.CalendarRecyclerViewAdapter
 import com.example.aristotle.MainActivity.InMeetingFragment
 import com.example.aristotle.Models.Meeting
 import com.google.gson.Gson
@@ -21,9 +24,13 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
+    private lateinit var calendarRecyclerView: RecyclerView
+    private lateinit var calendarRecyclerViewAdapter: CalendarRecyclerViewAdapter
+
     private lateinit var pathToMeetingsFile : String
 
     private var meetingsList = mutableListOf<Meeting>()
+    private var shownMeetings = mutableListOf<Meeting>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +38,19 @@ class CalendarFragment : Fragment() {
     ): View? {
         pathToMeetingsFile = this.context?.filesDir?.path + "/Meetings.json"
 
+        meetingsList = loadMeetings()
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(meetingsList)
+
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        calendarRecyclerView.adapter = calendarRecyclerViewAdapter
+        calendarRecyclerView.hasFixedSize()
 
         calendarView.showCurrentMonthPage()
 
@@ -50,18 +65,51 @@ class CalendarFragment : Fragment() {
 
         calendarView.setEvents(eventDayList)
 
+        val today = Calendar.getInstance()
+        val meetingTime = Calendar.getInstance()
+        for (meeting in meetingsList) {
+            meetingTime.time = meeting.startTime
+            if (today.get(Calendar.YEAR) == meetingTime.get(Calendar.YEAR) &&
+                today.get(Calendar.MONTH) == meetingTime.get(Calendar.MONTH) &&
+                today.get(Calendar.DAY_OF_MONTH) == meetingTime.get(Calendar.DAY_OF_MONTH)) {
+                shownMeetings.add(meeting)
+            }
+        }
+        calendarRecyclerViewAdapter.updateList(shownMeetings)
 
         calendarView.setOnDayClickListener(object :
             OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
-                Log.d("Day clicked", eventDay.calendar.time.toString())
+                shownMeetings.clear()
+                val meetingTime = Calendar.getInstance()
+                for (meeting in meetingsList) {
+                    meetingTime.time = meeting.startTime
+                    if (eventDay.calendar.get(Calendar.YEAR) == meetingTime.get(Calendar.YEAR) &&
+                        eventDay.calendar.get(Calendar.MONTH) == meetingTime.get(Calendar.MONTH) &&
+                        eventDay.calendar.get(Calendar.DAY_OF_MONTH) == meetingTime.get(Calendar.DAY_OF_MONTH)) {
+                        shownMeetings.add(meeting)
+                    }
+                }
+                calendarRecyclerViewAdapter.updateList(shownMeetings)
             }
         })
 
 
-        meeting_btn1.setOnClickListener() {
-//            openameeting()
-        }
+
+
+
+//        startTime.setOnClickListener {
+//            val animation = AnimationUtils.loadAnimation(
+//                activity, R.anim.slide_up)
+//            setter.visibility = View.VISIBLE
+//            setter.startAnimation(animation)
+//            deactivateElements()
+//
+//            currentSelected = startTimeSelected
+//
+//        }
+
+
 
 
         // Exit the popup when pressing outside of it
