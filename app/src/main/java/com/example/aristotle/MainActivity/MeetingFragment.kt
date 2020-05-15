@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.aristotle.MainActivity.MainActivity
 import com.example.aristotle.Models.Meeting
@@ -17,6 +18,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_meeting.*
 import java.io.*
 import java.lang.reflect.Type
@@ -30,7 +32,7 @@ class MeetingFragment : Fragment() {
 
     private var startTimeSelected = Calendar.getInstance()
     private var endTimeSelected = Calendar.getInstance()
-    private lateinit var currentSelected : Calendar
+    private var isStartSelected = true
 
     private lateinit var participantChipGroup : ChipGroup
     private var clickedParticipants = mutableListOf<User>()
@@ -80,9 +82,7 @@ class MeetingFragment : Fragment() {
             setter.visibility = View.VISIBLE
             setter.startAnimation(animation)
             deactivateElements()
-            Log.d("Meeting", "start time clicked")
-
-            currentSelected = startTimeSelected
+            isStartSelected = true
 
         }
 
@@ -92,10 +92,7 @@ class MeetingFragment : Fragment() {
             setter.visibility = View.VISIBLE
             setter.startAnimation(animation)
             deactivateElements()
-
-            Log.d("Meeting", "end time clicked")
-
-            currentSelected = endTimeSelected
+            isStartSelected = false
         }
 
         cancelTime.setOnClickListener {
@@ -122,28 +119,32 @@ class MeetingFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            Log.d("Selected year", currentSelected.get(Calendar.YEAR).toString())
-            Log.d("Selected month", currentSelected.get(Calendar.MONTH).toString())
-            Log.d("Selected day", currentSelected.get(Calendar.DAY_OF_MONTH).toString())
-            Log.d("Selected hour", currentSelected.get(Calendar.HOUR_OF_DAY).toString())
-            Log.d("Selected minute", currentSelected.get(Calendar.MINUTE).toString())
+            val cal = calendarViewSet.firstSelectedDate
+            cal.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+            cal.set(Calendar.MINUTE, timePicker.minute)
 
-            if(currentSelected.equals(startTimeSelected)) {
-                Log.d("cal", "starttime")
-                startTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  + (currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+            if(isStartSelected) {
+                startTimeSelected.set(
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    cal.get(Calendar.HOUR_OF_DAY),
+                    cal.get(Calendar.MINUTE)
+                )
+                startTime.setText(cal.get(Calendar.HOUR_OF_DAY).toString().padStart(2, '0') + ':' + cal.get(Calendar.MINUTE).toString().padStart(2, '0') + ' ' + cal.get(Calendar.DAY_OF_MONTH) + '/'  + (cal.get(Calendar.MONTH) + 1).toString() + "/" +  cal.get(Calendar.YEAR).toString())
             } else {
-                Log.d("cal", "endtime")
-                endTime.setText(timePicker.hour.toString().padStart(2, '0') + ':' + timePicker.minute.toString().padStart(2, '0') + ' ' + currentSelected.get(Calendar.DAY_OF_MONTH) + '/'  +(currentSelected.get(Calendar.MONTH) + 1).toString() + "/" +  currentSelected.get(Calendar.YEAR).toString())
+                endTimeSelected.set(
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    cal.get(Calendar.HOUR_OF_DAY),
+                    cal.get(Calendar.MINUTE)
+                )
+                endTime.setText(cal.get(Calendar.HOUR_OF_DAY).toString().padStart(2, '0') + ':' + cal.get(Calendar.MINUTE).toString().padStart(2, '0') + ' ' + cal.get(Calendar.DAY_OF_MONTH) + '/'  +(cal.get(Calendar.MONTH) + 1).toString() + "/" +  cal.get(Calendar.YEAR).toString())
             }
 
             activateElements()
         }
-
-//        calendarViewSet.setOnDayClickListener { eventDay ->
-//            currentSelected.set(Calendar.YEAR, eventDay.calendar.get(Calendar.YEAR))
-//            currentSelected.set(Calendar.MONTH, eventDay.calendar.get(Calendar.MONTH))
-//            currentSelected.set(Calendar.DAY_OF_MONTH, eventDay.calendar.get(Calendar.DAY_OF_MONTH))
-//        }
 
         buttonNewMeetingBook.setOnClickListener {
             val newMeeting = Meeting(

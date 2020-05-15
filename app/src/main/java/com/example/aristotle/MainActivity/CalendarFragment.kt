@@ -38,8 +38,8 @@ class CalendarFragment : Fragment() {
     ): View? {
         pathToMeetingsFile = this.context?.filesDir?.path + "/Meetings.json"
 
-        meetingsList = loadMeetings()
-        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(meetingsList)
+//        meetingsList = loadMeetings()
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(shownMeetings)
 
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
@@ -65,31 +65,29 @@ class CalendarFragment : Fragment() {
 
         calendarView.setEvents(eventDayList)
 
-        val today = Calendar.getInstance()
-        val meetingTime = Calendar.getInstance()
-        for (meeting in meetingsList) {
-            meetingTime.time = meeting.startTime
-            if (today.get(Calendar.YEAR) == meetingTime.get(Calendar.YEAR) &&
-                today.get(Calendar.MONTH) == meetingTime.get(Calendar.MONTH) &&
-                today.get(Calendar.DAY_OF_MONTH) == meetingTime.get(Calendar.DAY_OF_MONTH)) {
-                shownMeetings.add(meeting)
-            }
-        }
-        calendarRecyclerViewAdapter.updateList(shownMeetings)
-
         calendarView.setOnDayClickListener(object :
             OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 shownMeetings.clear()
+                val today = Calendar.getInstance()
+                val beforeToday = Calendar.getInstance().set(
+                    today.get(Calendar.YEAR),
+                    today.get(Calendar.MONTH),
+                    today.get(Calendar.DAY_OF_MONTH),
+                    0,
+                    0
+                )
                 val meetingTime = Calendar.getInstance()
                 for (meeting in meetingsList) {
                     meetingTime.time = meeting.startTime
                     if (eventDay.calendar.get(Calendar.YEAR) == meetingTime.get(Calendar.YEAR) &&
                         eventDay.calendar.get(Calendar.MONTH) == meetingTime.get(Calendar.MONTH) &&
                         eventDay.calendar.get(Calendar.DAY_OF_MONTH) == meetingTime.get(Calendar.DAY_OF_MONTH)) {
+
                         shownMeetings.add(meeting)
                     }
                 }
+                shownMeetings.sortBy { meeting -> meeting.startTime }
                 calendarRecyclerViewAdapter.updateList(shownMeetings)
             }
         })
@@ -156,6 +154,24 @@ class CalendarFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        meetingsList = loadMeetings()
+        shownMeetings.clear()
+        val today = Calendar.getInstance()
+        val meetingTime = Calendar.getInstance()
+        for (meeting in meetingsList) {
+            meetingTime.time = meeting.startTime
+            if (today.get(Calendar.YEAR) == meetingTime.get(Calendar.YEAR) &&
+                today.get(Calendar.MONTH) == meetingTime.get(Calendar.MONTH) &&
+                today.get(Calendar.DAY_OF_MONTH) == meetingTime.get(Calendar.DAY_OF_MONTH)) {
+                shownMeetings.add(meeting)
+            }
+        }
+        shownMeetings.sortBy { meeting -> meeting.startTime }
+        calendarRecyclerViewAdapter.updateList(shownMeetings)
     }
 
     private fun openameeting() {
