@@ -15,6 +15,7 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
         val start_time: TextView = itemView.findViewById(R.id.notes)
         val end_time: TextView = itemView.findViewById(R.id.transcription)
         val participants: TextView = itemView.findViewById(R.id.attendance)
+        val location: TextView = itemView.findViewById(R.id.activity)
     }
 
     // Create new views (invoked by the layout manager)
@@ -29,8 +30,26 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
         holder.start_time.text = meetingStartTime
         val meetingEndTime = meetingData[position].endTime.toString()
         holder.end_time.text = meetingEndTime
-        val meetingParticipants = meetingData[position].participants.toString()
+
+        var meetingParticipants: String = ""
+        if(meetingData[position].participants.isNotEmpty())
+        {
+            for (meeting in meetingData[position].participants)
+            {
+                val participant = meeting.firstName + " " + meeting.lastName
+                meetingParticipants = "$meetingParticipants, $participant"
+                meetingParticipants = meetingParticipants.drop(1)
+            }
+        }
+        else
+        {
+            meetingParticipants = "No participants selected"
+        }
         holder.participants.text = meetingParticipants
+
+        val meetingLocation : String = meetingData[position].location.toString()
+        holder.location.text = meetingLocation
+
     }
 
     override fun getItemCount() = meetingData.size
