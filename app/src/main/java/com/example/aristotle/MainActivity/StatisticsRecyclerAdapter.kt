@@ -1,8 +1,10 @@
 package com.example.aristotle.MainActivity
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.R
@@ -16,6 +18,16 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
         val end_time: TextView = itemView.findViewById(R.id.transcription)
         val participants: TextView = itemView.findViewById(R.id.attendance)
         val location: TextView = itemView.findViewById(R.id.activity)
+
+        /*
+        fun bind(meeting: Meeting, clickListener: AdapterView.OnItemClickListener)
+        {
+            Log.d("Test tag", "Test")
+            itemView.setOnClickListener{
+                clickListener.onItemClick(meeting)
+            }
+        }
+         */
     }
 
     // Create new views (invoked by the layout manager)
@@ -50,7 +62,11 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
         val meetingLocation : String = meetingData[position].location.toString()
         holder.location.text = meetingLocation
 
+        holder.meeting_title.setOnClickListener{
+            Log.d("bajs", "och kiss")
+        }
     }
+
 
     override fun getItemCount() = meetingData.size
 
