@@ -108,7 +108,7 @@ class InMeetingFragment : Fragment() {
         transcriptionStop.setOnClickListener {
 
             val builder2 = this.context?.let { it1 -> AlertDialog.Builder(it1) }
-            builder2?.setTitle("Save notes ?")
+            builder2?.setTitle("Save notes?")
             builder2?.setMessage("Do you want to save the transcription of this meeting?")
             builder2?.setPositiveButton("Yes"){dialog, which->
                 Toast.makeText(this.context , "Transcription saved" , Toast.LENGTH_SHORT).show()
@@ -119,7 +119,7 @@ class InMeetingFragment : Fragment() {
             }
 
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
-            builder?.setTitle("Exit Meeting ?")
+            builder?.setTitle("Exit Meeting?")
             builder?.setMessage("You are about to end the current meeting. Are you sure you want to end it?")
             builder?.setPositiveButton("END MEETING") { dialog, which->
                 Toast.makeText(this.context , "Stop Button Pressed, meeting finished" , Toast.LENGTH_SHORT).show()

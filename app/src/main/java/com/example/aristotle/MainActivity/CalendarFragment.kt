@@ -1,24 +1,25 @@
 package com.example.aristotle
 
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.example.aristotle.MainActivity.Adapters.CalendarRecyclerViewAdapter
-import com.example.aristotle.MainActivity.InMeetingFragment
+import com.example.aristotle.MainActivity.MainActivity
 import com.example.aristotle.Models.Meeting
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.io.*
 import java.lang.reflect.Type
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -32,6 +33,19 @@ class CalendarFragment : Fragment() {
     private var meetingsList = mutableListOf<Meeting>()
     private var shownMeetings = mutableListOf<Meeting>()
 
+    private val startMeetinglistener: View.OnClickListener = View.OnClickListener {
+        val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
+        builder?.setTitle("Start Meeting?")
+        builder?.setMessage("You are about to start the meeting. Are you sure you want to start it?")
+        builder?.setPositiveButton("START MEETING") { dialog, which->
+            startMeeting()
+        }
+        builder?.setNegativeButton("CANCEL") { dialog, which -> }
+        val dialog: AlertDialog = builder!!.create()
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +53,7 @@ class CalendarFragment : Fragment() {
         pathToMeetingsFile = this.context?.filesDir?.path + "/Meetings.json"
 
 //        meetingsList = loadMeetings()
-        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(shownMeetings)
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(startMeetinglistener, shownMeetings)
 
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
@@ -70,13 +84,6 @@ class CalendarFragment : Fragment() {
             override fun onDayClick(eventDay: EventDay) {
                 shownMeetings.clear()
                 val today = Calendar.getInstance()
-                val beforeToday = Calendar.getInstance().set(
-                    today.get(Calendar.YEAR),
-                    today.get(Calendar.MONTH),
-                    today.get(Calendar.DAY_OF_MONTH),
-                    0,
-                    0
-                )
                 val meetingTime = Calendar.getInstance()
                 for (meeting in meetingsList) {
                     meetingTime.time = meeting.startTime
@@ -87,14 +94,24 @@ class CalendarFragment : Fragment() {
                         shownMeetings.add(meeting)
                     }
                 }
-                shownMeetings.sortBy { meeting -> meeting.startTime }
+
+                if (makeSimpleDate(eventDay.calendar) == makeSimpleDate(today))
+                    recyclerViewHeader.text = "Today"
+                else if (eventDay.calendar.before(today))
+                    recyclerViewHeader.text = "Previous meetings"
+                else if (eventDay.calendar.after(today))
+                    recyclerViewHeader.text = "Coming meetings"
+                if (shownMeetings.isEmpty()) {
+                    noEvents.visibility = View.VISIBLE
+                }
+                else {
+                    noEvents.visibility = View.INVISIBLE
+                    shownMeetings.sortBy { meeting -> meeting.startTime }
+                }
                 calendarRecyclerViewAdapter.updateList(shownMeetings)
             }
         })
-
-
-
-
+        
 
 //        startTime.setOnClickListener {
 //            val animation = AnimationUtils.loadAnimation(
@@ -108,24 +125,11 @@ class CalendarFragment : Fragment() {
 //        }
 
 
-
-
         // Exit the popup when pressing outside of it
         calendarLayout.setOnClickListener() {
             popup.visibility = View.INVISIBLE
         }
 
-
-//      Click handler for the calendar
-//        calendarView.setOnDayClickListener { eventDay ->
-//            val clickedDayCalendar: Calendar = eventDay.calendar
-//            println(clickedDayCalendar)
-//
-//
-//            availableMeeting.visibility = View.VISIBLE
-//            popup.visibility = View.VISIBLE
-//            noEvents.visibility = View.INVISIBLE
-//        }
 
         // Setting text field to be uneditable
         popUpMeetingName.setEnabled(false)
@@ -170,13 +174,20 @@ class CalendarFragment : Fragment() {
                 shownMeetings.add(meeting)
             }
         }
-        shownMeetings.sortBy { meeting -> meeting.startTime }
+        if (shownMeetings.isEmpty()) {
+            noEvents.visibility = View.VISIBLE
+            return
+        }
+        else {
+            noEvents.visibility = View.INVISIBLE
+            shownMeetings.sortBy { meeting -> meeting.startTime }
+        }
         calendarRecyclerViewAdapter.updateList(shownMeetings)
     }
 
-    private fun openameeting() {
-        val intent = Intent(context, InMeetingFragment::class.java)
-        startActivity(intent)
+    private fun startMeeting() {
+        val act = activity as MainActivity
+        act.fragmentSwitcher(act.inMeetingFragment)
     }
 
     private fun loadMeetings() : MutableList<Meeting> {
@@ -194,5 +205,10 @@ class CalendarFragment : Fragment() {
         }
 
         return meetingsJson
+    }
+
+    private fun makeSimpleDate(calendar: Calendar): String {
+        val fmt = SimpleDateFormat("yyyyMMdd")
+        return fmt.format(calendar.time)
     }
 }

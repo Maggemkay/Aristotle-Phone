@@ -1,16 +1,24 @@
 package com.example.aristotle.MainActivity.Adapters
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aristotle.CalendarFragment
+import com.example.aristotle.MainActivity.MainActivity
 import com.example.aristotle.Models.Meeting
 import com.example.aristotle.R
 import java.util.*
 
-class CalendarRecyclerViewAdapter(private var meetingsData: List<Meeting>) : RecyclerView.Adapter<CalendarRecyclerViewAdapter.CalendarMeetingsViewHolder>() {
+class CalendarRecyclerViewAdapter(private val startMeetinglistener: View.OnClickListener,
+                                  private var meetingsData: List<Meeting>)
+    : RecyclerView.Adapter<CalendarRecyclerViewAdapter.CalendarMeetingsViewHolder>() {
 
     class CalendarMeetingsViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
         val meetingSubejct: TextView = itemView.findViewById(R.id.meetingSubject)
@@ -47,6 +55,7 @@ class CalendarRecyclerViewAdapter(private var meetingsData: List<Meeting>) : Rec
             holder.startMeetingButton.visibility = View.VISIBLE
             holder.startMeetingText.visibility = View.VISIBLE
 
+            holder.startMeetingButton.setOnClickListener(startMeetinglistener)
         }
     }
 
