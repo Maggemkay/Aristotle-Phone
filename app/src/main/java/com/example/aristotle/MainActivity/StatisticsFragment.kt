@@ -26,7 +26,7 @@ class StatisticsFragment : Fragment() {
     private var meetingList: MutableList<Meeting> = mutableListOf<Meeting>()
     private var searchMeetingList: MutableList<Meeting> = mutableListOf<Meeting>()
 
-    private lateinit var pathToMeetingFile : String
+    lateinit var pathToMeetingFile : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,8 +79,6 @@ class StatisticsFragment : Fragment() {
 //        animDrawable.start()
 
     })
-
-
 }
 
     override fun onResume() {

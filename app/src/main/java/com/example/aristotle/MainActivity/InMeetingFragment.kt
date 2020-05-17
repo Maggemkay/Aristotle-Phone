@@ -196,7 +196,6 @@ class InMeetingFragment : Fragment() {
         file.writeText(notesTextView.text.toString())
 
         saveMeeting(fileName)
-
     }
 
     private fun saveMeeting(newTranscriptionPath: String) {

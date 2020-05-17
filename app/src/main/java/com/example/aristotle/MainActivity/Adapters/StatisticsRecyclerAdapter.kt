@@ -1,34 +1,29 @@
 package com.example.aristotle.MainActivity.Adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.R
 import com.example.aristotle.Models.Meeting
 import com.example.aristotle.StatisticsFragment
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_statistics.*
+import java.io.*
+import java.lang.reflect.Type
 
-class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var statisticsFragment: StatisticsFragment) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
+class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, val statisticsFragment: StatisticsFragment) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
 
     class MeetingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val meeting_title: TextView = itemView.findViewById(R.id.Title_subject)
-        val start_time: TextView = itemView.findViewById(R.id.notes)
-        val end_time: TextView = itemView.findViewById(R.id.transcription)
+        val meetingSubject: TextView = itemView.findViewById(R.id.Title_subject)
+        val startTime: TextView = itemView.findViewById(R.id.notes)
+        val endTime: TextView = itemView.findViewById(R.id.transcription)
         val participants: TextView = itemView.findViewById(R.id.attendance)
         val location: TextView = itemView.findViewById(R.id.activity)
-
-        /*
-        fun bind(meeting: Meeting, clickListener: AdapterView.OnItemClickListener)
-        {
-            Log.d("Test tag", "Test")
-            itemView.setOnClickListener{
-                clickListener.onItemClick(meeting)
-            }
-        }
-         */
+        val meetingClickArea: ConstraintLayout = itemView.findViewById(R.id.meetingShowNotes)
     }
 
     // Create new views (invoked by the layout manager)
@@ -39,14 +34,11 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var stat
     }
 
     override fun onBindViewHolder(holder: MeetingViewHolder, position: Int) {
-        val meetingTitle = meetingData[position].subject
-        holder.meeting_title.text = meetingTitle
-        val meetingStartTime = meetingData[position].startTime.toString()
-        holder.start_time.text = meetingStartTime
-        val meetingEndTime = meetingData[position].endTime.toString()
-        holder.end_time.text = meetingEndTime
+        holder.meetingSubject.text = meetingData[position].subject
+        holder.startTime.text = meetingData[position].startTime.toString()
+        holder.endTime.text = meetingData[position].endTime.toString()
 
-        var meetingParticipants: String = ""
+        var meetingParticipants = ""
         if(meetingData[position].participants.isNotEmpty())
         {
             for (meeting in meetingData[position].participants)
@@ -62,11 +54,12 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var stat
         }
         holder.participants.text = meetingParticipants
 
-        val meetingLocation : String = meetingData[position].location.toString()
-        holder.location.text = meetingLocation
+        holder.location.text = meetingData[position].location
 
-        holder.meeting_title.setOnClickListener{
-            Log.d("bajs", "och kiss")
+        holder.meetingClickArea.setOnClickListener{
+            var file = File(meetingData[position].notePath)
+            var fileText = file.readText()
+            statisticsFragment.meetingNotes.text = fileText
             statisticsFragment.meetingNotes.visibility = View.VISIBLE
         }
 
@@ -82,4 +75,5 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var stat
         meetingData = newMeetingList
         notifyDataSetChanged()
     }
+
 }

@@ -21,10 +21,11 @@
 
     <!-- This should be hidden and showing this constraint layout on click to give the dropdown effect easily -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="visible"
+        android:id="@+id/meetingShowNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/notes"
@@ -32,12 +33,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:clickable="true"
             android:text="Notes"
             android:textColor="#000000"
-            android:clickable="true"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/note_image"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/note_image"
@@ -66,10 +67,10 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:clickable="true"
             android:text="Transcriptions"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/transcription_image"
             app:layout_constraintTop_toBottomOf="@+id/notes_line" />
 
@@ -156,6 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity" />
+
         <View
             android:id="@+id/thick_line_1"
             android:layout_width="380dp"

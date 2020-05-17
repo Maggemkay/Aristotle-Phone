@@ -13,15 +13,9 @@ import com.example.aristotle.Models.Meeting
 import com.example.aristotle.R
 import java.util.*
 
-//class CalendarRecyclerViewAdapter(private val startMeetinglistener: View.OnClickListener,
-//                                  private var meetingsData: List<Meeting>)
 class CalendarRecyclerViewAdapter(private val parentFragment: CalendarFragment,
                                   private var meetingsData: List<Meeting>)
     : RecyclerView.Adapter<CalendarRecyclerViewAdapter.CalendarMeetingsViewHolder>() {
-
-    lateinit var clickedMeeting :Meeting
-
-    // FIXA MEETING FRÅN CALENDAR GREJS
 
     class CalendarMeetingsViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
         val meetingSubejct: TextView = itemView.findViewById(R.id.meetingSubject)
