@@ -68,6 +68,10 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var stat
             Log.d("bajs", "och kiss")
             statisticsFragment.meetingNotes.visibility = View.VISIBLE
         }
+
+        statisticsFragment.statisticsLayout.setOnClickListener{
+            statisticsFragment.meetingNotes.visibility = View.INVISIBLE
+        }
     }
 
 
