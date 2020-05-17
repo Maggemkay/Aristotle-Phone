@@ -152,7 +152,8 @@ class MeetingFragment : Fragment() {
                 endTimeSelected.time,
                 editTextMeetingSubject.text.toString(),
                 editTextLocation.text.toString(),
-                clickedParticipants
+                clickedParticipants,
+                ""
             )
 
             saveMeeting(newMeeting)

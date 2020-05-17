@@ -22,7 +22,11 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import com.example.aristotle.Models.Meeting
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.*
+import java.lang.reflect.Type
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -32,6 +36,10 @@ class InMeetingFragment : Fragment() {
     private val speechSubscriptionKey = "90477e8df88e4ebca77c765846d66795"
     // Replace below with your own service region (e.g., "westus").
     private val serviceRegion = "northeurope"
+
+    private lateinit var currentMeeting :Meeting
+
+    private lateinit var pathToMeetingsFile : String
 
     var config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion)!!
     var reco = SpeechRecognizer(config)
@@ -58,6 +66,9 @@ class InMeetingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        pathToMeetingsFile = this.context?.filesDir?.path + "/Meetings.json"
+
         return inflater.inflate(R.layout.fragment_inmeeting, container, false)
     }
 
@@ -145,10 +156,6 @@ class InMeetingFragment : Fragment() {
             transcriptionTextView.setClickable(true);
         }
 
-        SaveButton.setOnClickListener {
-            saveTextToFile()
-        }
-
         TranscriptionsButton.setOnClickListener {
             transcriptionTextView.visibility = View.VISIBLE
         }
@@ -186,22 +193,52 @@ class InMeetingFragment : Fragment() {
         Log.d("Reading data filename", fileName)
 
         var file = File(fileName)
+        file.writeText(notesTextView.text.toString())
 
-        // create a new file
-        val isNewFileCreated :Boolean = file.createNewFile()
+        saveMeeting(fileName)
 
-        if(isNewFileCreated){
-            file.writeText(notesTextView.text.toString())
-            Toast.makeText(this.context,"data saved",Toast.LENGTH_LONG).show()
+    }
 
-            var testfile = File(fileName)
+    private fun saveMeeting(newTranscriptionPath: String) {
+        var meetingsJson = loadMeetings()
 
-            Log.d("Reading data", testfile.toString())
-        } else{
-            Toast.makeText(this.context,"already exists.",Toast.LENGTH_LONG).show()
-
-            var testfile = File(fileName)
-            Log.d("Reading data", testfile.bufferedReader().readLines().toString())
+        var i = 0
+        for (meeting in meetingsJson) {
+            if (meeting.startTime == currentMeeting.startTime &&
+                meeting.endTime == currentMeeting.endTime &&
+                meeting.location == currentMeeting.location &&
+                meeting.subject == currentMeeting.subject) {
+                break
+            }
+            i++
         }
+
+        meetingsJson[i].notePath = newTranscriptionPath
+
+        val writer: Writer = FileWriter(pathToMeetingsFile)
+        Gson().toJson(meetingsJson, writer)
+        writer.close()
+
+    }
+
+    private fun loadMeetings() : MutableList<Meeting> {
+        var meetingsJson = mutableListOf<Meeting>()
+
+        try {
+            val reader: Reader = FileReader(pathToMeetingsFile)
+            val REVIEW_TYPE : Type = object : TypeToken<List<Meeting?>?>() {}.type
+            meetingsJson = Gson().fromJson(reader, REVIEW_TYPE) // contains the whole reviews list
+            reader.close()
+        } catch (e : FileNotFoundException) {
+            val writer: Writer = FileWriter(pathToMeetingsFile)
+            Gson().toJson(meetingsJson, writer)
+            writer.close()
+        }
+
+        return meetingsJson
+    }
+
+    fun loadClickedMeeting(meeting: Meeting) {
+        currentMeeting = meeting
     }
 }

@@ -7,5 +7,6 @@ class Meeting(
     val endTime :Date,
     val subject :String,
     val location :String,
-    val participants :List<User>
+    val participants :List<User>,
+    var notePath :String
 )

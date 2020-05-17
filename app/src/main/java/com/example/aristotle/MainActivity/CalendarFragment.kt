@@ -1,11 +1,9 @@
 package com.example.aristotle
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,18 +31,19 @@ class CalendarFragment : Fragment() {
     private var meetingsList = mutableListOf<Meeting>()
     private var shownMeetings = mutableListOf<Meeting>()
 
-    private val startMeetinglistener: View.OnClickListener = View.OnClickListener {
-        val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
-        builder?.setTitle("Start Meeting?")
-        builder?.setMessage("You are about to start the meeting. Are you sure you want to start it?")
-        builder?.setPositiveButton("START MEETING") { dialog, which->
-            startMeeting()
-        }
-        builder?.setNegativeButton("CANCEL") { dialog, which -> }
-        val dialog: AlertDialog = builder!!.create()
-        dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-    }
+//    private val startMeetinglistener: View.OnClickListener = View.OnClickListener {
+//        val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
+//        builder?.setTitle("Start Meeting?")
+//        builder?.setMessage("You are about to start the meeting. Are you sure you want to start it?")
+//        builder?.setPositiveButton("START MEETING") { dialog, which->
+//
+//            startMeeting()
+//        }
+//        builder?.setNegativeButton("CANCEL") { dialog, which -> }
+//        val dialog: AlertDialog = builder!!.create()
+//        dialog.show()
+//        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +52,8 @@ class CalendarFragment : Fragment() {
         pathToMeetingsFile = this.context?.filesDir?.path + "/Meetings.json"
 
 //        meetingsList = loadMeetings()
-        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(startMeetinglistener, shownMeetings)
+//        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(startMeetinglistener, shownMeetings)
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter(this, shownMeetings)
 
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
@@ -185,8 +185,9 @@ class CalendarFragment : Fragment() {
         calendarRecyclerViewAdapter.updateList(shownMeetings)
     }
 
-    private fun startMeeting() {
+    fun startMeeting(meetingPos: Int) {
         val act = activity as MainActivity
+        act.inMeetingFragment.loadClickedMeeting(shownMeetings[meetingPos])
         act.fragmentSwitcher(act.inMeetingFragment)
     }
 
