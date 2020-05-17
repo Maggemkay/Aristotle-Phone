@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.R
 import com.example.aristotle.Models.Meeting
+import com.example.aristotle.StatisticsFragment
+import kotlinx.android.synthetic.main.fragment_statistics.*
 
-class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
+class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var statisticsFragment: StatisticsFragment) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
 
     class MeetingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val meeting_title: TextView = itemView.findViewById(R.id.Title_subject)
@@ -64,6 +66,7 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>) : Recycl
 
         holder.meeting_title.setOnClickListener{
             Log.d("bajs", "och kiss")
+            statisticsFragment.meetingNotes.visibility = View.VISIBLE
         }
     }
 

@@ -37,7 +37,7 @@ class StatisticsFragment : Fragment() {
         // Get the local meetings
         meetingList = loadMeetings()
 
-        statisticsRecyclerAdapter = StatisticsRecyclerAdapter(meetingList)
+        statisticsRecyclerAdapter = StatisticsRecyclerAdapter(meetingList, this)
     }
 
     override fun onCreateView(
