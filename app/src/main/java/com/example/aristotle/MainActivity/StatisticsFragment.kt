@@ -1,18 +1,16 @@
 package com.example.aristotle
 
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_statistics.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.aristotle.MainActivity.StatisticsRecyclerAdapter
+import com.example.aristotle.MainActivity.Adapters.StatisticsRecyclerAdapter
 import com.example.aristotle.Models.Meeting
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -37,7 +35,11 @@ class StatisticsFragment : Fragment() {
         // Get the local meetings
         meetingList = loadMeetings()
 
-        statisticsRecyclerAdapter = StatisticsRecyclerAdapter(meetingList, this)
+        statisticsRecyclerAdapter =
+            StatisticsRecyclerAdapter(
+                meetingList,
+                this
+            )
     }
 
     override fun onCreateView(

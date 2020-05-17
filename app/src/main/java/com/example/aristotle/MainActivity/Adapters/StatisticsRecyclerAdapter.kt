@@ -1,10 +1,9 @@
-package com.example.aristotle.MainActivity
+package com.example.aristotle.MainActivity.Adapters
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.R
@@ -34,7 +33,9 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, var stat
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeetingViewHolder {
-        return MeetingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.statistics_dropdown, parent, false))
+        return MeetingViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.statistics_dropdown, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MeetingViewHolder, position: Int) {
