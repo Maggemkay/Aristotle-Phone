@@ -56,13 +56,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLoginPassword"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginBottom="32dp"
         android:hint="@string/password"
         app:boxBackgroundColor="#ffffff"
         app:boxBackgroundMode="filled"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLoginForgotPassword"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -73,21 +73,7 @@
             android:text="abc123" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonLoginForgotPassword"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:text="@string/forgot_password"
-        android:textColor="#000000"
-        android:textSize="10sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLoginPassword" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLogin"
