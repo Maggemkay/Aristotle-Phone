@@ -74,7 +74,7 @@ class CalendarFragment : Fragment() {
         for (meeting in meetingsList) {
             val meetingCalendar = Calendar.getInstance()
             meetingCalendar.time = meeting.startTime
-            eventDayList.add(EventDay(meetingCalendar, R.drawable.small_orange_dot))
+            eventDayList.add(EventDay(meetingCalendar, R.drawable.orange_dot))
         }
 
         calendarView.setEvents(eventDayList)

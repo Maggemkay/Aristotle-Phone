@@ -120,6 +120,8 @@ class InMeetingFragment : Fragment() {
             builder2?.setPositiveButton("Yes"){dialog, which->
                 Toast.makeText(this.context , "Transcription saved" , Toast.LENGTH_SHORT).show()
                 saveTextToFile()
+                val act = activity as MainActivity
+                act.fragmentSwitcher(act.calendarFragment)
             }
             builder2?.setNegativeButton("No") { dialog, which ->
                 Toast.makeText(this.context , "Transcription not saved" , Toast.LENGTH_SHORT).show()
