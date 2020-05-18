@@ -11,7 +11,7 @@ import com.example.aristotle.Models.Meeting
 import com.example.aristotle.StatisticsFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.fragment_statistics.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import java.io.*
 import java.lang.reflect.Type
 

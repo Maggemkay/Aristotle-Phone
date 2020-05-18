@@ -77,17 +77,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomNavigation = bottom_navigation
 
-//        Setting the default view of the app
         bottomNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.fragmentHolderMain, calendarFragment)
         fragmentTransaction.commit()
-
-//        clickhandler for profile picture
         profile_image.setOnClickListener(){
             fragmentSwitcher(viewProfileFragment)
-//            Toast.makeText(this, "Profile icon pressed", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -112,7 +108,6 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
-
 
     fun View.visible() {
         visibility = View.VISIBLE
