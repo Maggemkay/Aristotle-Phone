@@ -43,7 +43,7 @@ class InMeetingFragment : Fragment() {
 
     var config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion)!!
     var reco = SpeechRecognizer(config)
-    var pause = true
+    var pause = false
 
     var result = ""
     lateinit var notesTextView: TextView
@@ -83,12 +83,8 @@ class InMeetingFragment : Fragment() {
         notesTextView = transcriptionTextView as TextView
         notesTextView.setMovementMethod(ScrollingMovementMethod())
         notesTextView.setText(result)
-        
 
-//        val animDrawable = InMeeting.background as AnimationDrawable
-//        animDrawable.setEnterFadeDuration(10)
-//        animDrawable.setExitFadeDuration(5000)
-//        animDrawable.start()
+        recogniztionStart()
 
         try {
             reco.recognizing.addEventListener({ _, e -> notesTextView.text = result + e.getResult().getText()+". " })

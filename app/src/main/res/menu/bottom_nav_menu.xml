@@ -12,9 +12,9 @@
         android:title="New Meeting"
         android:icon="@drawable/new_meeting" />
     <item
-        android:id="@+id/statistics"
-        android:title="Statistics"
-        android:icon="@drawable/statistics" />
+        android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/ic_history_black_24dp" />
 
     <item
         android:id="@+id/contacts"
