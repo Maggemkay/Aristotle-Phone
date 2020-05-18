@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.MainActivity.Adapters.UsersRecyclerViewAdapter
 import com.example.aristotle.MainActivity.MainActivity
 import com.example.aristotle.Models.User
@@ -34,6 +36,7 @@ class ContactsFragment : Fragment() {
     private var searchUserList: MutableList<User> = mutableListOf<User>()
 
     private lateinit var pathToUserFile : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,21 @@ class ContactsFragment : Fragment() {
         usersRecyclerView.adapter = userRecyclerViewAdapter
         usersRecyclerView.hasFixedSize()
 
+        val swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val removeUser = userRecyclerViewAdapter.removeAt(viewHolder.adapterPosition)
+                userList = deleteUser(removeUser)
+            }
+        }
+        ItemTouchHelper(swipeHandler).attachToRecyclerView(usersRecyclerView)
 
         searchContactsField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -105,6 +123,19 @@ class ContactsFragment : Fragment() {
         }
 
         return jsonUsers
+    }
+
+    private fun deleteUser(deleteUser :User) : MutableList<User>{
+        val newUserList = loadUsers()
+
+        if (newUserList.contains(deleteUser)) {
+            newUserList.remove(deleteUser)
+            val writer: Writer = FileWriter(pathToUserFile)
+            Gson().toJson(newUserList, writer)
+            writer.close()
+        }
+
+        return newUserList
     }
 
 }
