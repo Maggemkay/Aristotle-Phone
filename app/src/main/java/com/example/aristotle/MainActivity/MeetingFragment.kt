@@ -156,14 +156,31 @@ class MeetingFragment : Fragment() {
                 ""
             )
 
-            saveMeeting(newMeeting)
-
             val builder = this.context?.let { it1 -> AlertDialog.Builder(it1) }
-            builder?.setTitle("Your meeting is booked")
-            builder?.setMessage("Your meeting have been booked and added to the calendar.")
+            var changeFragmentFlag = false
+
+            if(editTextMeetingSubject.text!!.isEmpty())
+            {
+                builder?.setTitle("Subject field is empty")
+                builder?.setMessage("You have not written a subject, please enter a subject to book a meeting")
+            }
+            else if(editTextLocation.text!!.isEmpty())
+            {
+                builder?.setTitle("Location field is empty")
+                builder?.setMessage("You have not written a location, please enter a location to book a meeting")
+            }
+            else
+            {
+                saveMeeting(newMeeting)
+                builder?.setTitle("Your meeting is booked")
+                builder?.setMessage("Your meeting have been booked and added to the calendar.")
+                changeFragmentFlag = true
+            }
+
             builder?.setPositiveButton("Ok") { dialog, which->
                 val act = activity as MainActivity
-                act.fragmentSwitcher(act.calendarFragment)
+                if(changeFragmentFlag)
+                    act.fragmentSwitcher(act.calendarFragment)
             }
             val dialog: AlertDialog = builder!!.create()
             dialog.show()
