@@ -10,10 +10,11 @@
 
     <ImageView
         android:id="@+id/imageViewLoginBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="416dp"
+        android:layout_height="307dp"
         android:src="@drawable/background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,20 +49,20 @@
             android:id="@+id/textInputEditTextLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="jon@doe.com" />
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLoginPassword"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginBottom="32dp"
         android:hint="@string/password"
         app:boxBackgroundColor="#ffffff"
         app:boxBackgroundMode="filled"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLoginForgotPassword"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,24 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:text="abc123" />
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonLoginForgotPassword"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:text="@string/forgot_password"
-        android:textColor="#000000"
-        android:textSize="10sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLoginPassword" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLogin"
@@ -94,13 +81,13 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLoginDontHaveAnAccount"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLoginDontHaveAnAccount"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLoginCreateAccount"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginCreateAccount"
         app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="@+id/buttonLoginDontHaveAnAccount" />
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginCreateAccount" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonLoginDontHaveAnAccount"
+        android:id="@+id/buttonLoginCreateAccount"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
