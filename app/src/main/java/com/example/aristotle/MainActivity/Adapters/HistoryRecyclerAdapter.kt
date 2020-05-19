@@ -5,17 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aristotle.R
 import com.example.aristotle.Models.Meeting
-import com.example.aristotle.StatisticsFragment
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.aristotle.HistoryFragment
 import kotlinx.android.synthetic.main.fragment_history.*
 import java.io.*
-import java.lang.reflect.Type
 
-class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, val statisticsFragment: StatisticsFragment) : RecyclerView.Adapter<StatisticsRecyclerAdapter.MeetingViewHolder>() {
+class HistoryRecyclerAdapter(private var meetingData: List<Meeting>, val historyFragment: HistoryFragment) : RecyclerView.Adapter<HistoryRecyclerAdapter.MeetingViewHolder>() {
 
     class MeetingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val meetingSubject: TextView = itemView.findViewById(R.id.Title_subject)
@@ -57,14 +55,12 @@ class StatisticsRecyclerAdapter(private var meetingData: List<Meeting>, val stat
         holder.location.text = meetingData[position].location
 
         holder.meetingClickArea.setOnClickListener{
-            var file = File(meetingData[position].notePath)
-            var fileText = file.readText()
-            statisticsFragment.meetingNotes.text = fileText
-            statisticsFragment.meetingNotes.visibility = View.VISIBLE
-        }
-
-        statisticsFragment.statisticsLayout.setOnClickListener{
-            statisticsFragment.meetingNotes.visibility = View.INVISIBLE
+            if (meetingData[position].notePath.endsWith(".txt")) {
+                var file = File(meetingData[position].notePath)
+                var fileText = file.readText()
+                historyFragment.meetingNotes.text = fileText
+                historyFragment.meetingNotes.visibility = View.VISIBLE
+            }
         }
     }
 

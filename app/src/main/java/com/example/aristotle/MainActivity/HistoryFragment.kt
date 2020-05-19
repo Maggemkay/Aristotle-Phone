@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_history.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.aristotle.MainActivity.Adapters.StatisticsRecyclerAdapter
+import com.example.aristotle.MainActivity.Adapters.HistoryRecyclerAdapter
 import com.example.aristotle.Models.Meeting
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -18,10 +18,10 @@ import java.io.*
 import java.lang.reflect.Type
 
 
-class StatisticsFragment : Fragment() {
+class HistoryFragment : Fragment() {
 
     private lateinit var statisticsRecyclerView: androidx.recyclerview.widget.RecyclerView
-    private lateinit var statisticsRecyclerAdapter: StatisticsRecyclerAdapter
+    private lateinit var statisticsRecyclerAdapter: HistoryRecyclerAdapter
 
     private var meetingList: MutableList<Meeting> = mutableListOf<Meeting>()
     private var searchMeetingList: MutableList<Meeting> = mutableListOf<Meeting>()
@@ -32,11 +32,10 @@ class StatisticsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         pathToMeetingFile = this.context?.filesDir?.path + "/Meetings.json"
 
-        // Get the local meetings
         meetingList = loadMeetings()
 
         statisticsRecyclerAdapter =
-            StatisticsRecyclerAdapter(
+            HistoryRecyclerAdapter(
                 meetingList,
                 this
             )
@@ -72,13 +71,11 @@ class StatisticsFragment : Fragment() {
                 else
                     statisticsRecyclerAdapter.updateList(meetingList)
             }
+        })
 
-//        val animDrawable = statisticsLayout.background as AnimationDrawable
-//        animDrawable.setEnterFadeDuration(10)
-//        animDrawable.setExitFadeDuration(5000)
-//        animDrawable.start()
-
-    })
+        meetingNotes.setOnClickListener {
+            meetingNotes.visibility = View.INVISIBLE
+        }
 }
 
     override fun onResume() {

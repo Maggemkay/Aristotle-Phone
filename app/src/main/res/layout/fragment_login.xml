@@ -48,7 +48,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextLoginEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -68,7 +69,8 @@
             android:id="@+id/textInputEditTextLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

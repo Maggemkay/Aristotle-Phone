@@ -2,7 +2,6 @@ package com.example.aristotle.MainActivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,7 +13,6 @@ import com.example.aristotle.*
 import com.example.aristotle.LoginActivity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.aristotle.R
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
     val calendarFragment = CalendarFragment()
     val meetingFragment = MeetingFragment()
-    val statisticsFragment = StatisticsFragment()
+    val statisticsFragment = HistoryFragment()
     val contactsFragment = ContactsFragment()
     val inMeetingFragment = InMeetingFragment()
     val changePasswordFragment = ChangePasswordFragment()
