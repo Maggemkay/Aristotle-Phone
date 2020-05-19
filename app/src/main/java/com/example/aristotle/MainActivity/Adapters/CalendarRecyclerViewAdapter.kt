@@ -1,6 +1,7 @@
 package com.example.aristotle.MainActivity.Adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class CalendarRecyclerViewAdapter(private val parentFragment: CalendarFragment,
     class CalendarMeetingsViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
         val meetingSubejct: TextView = itemView.findViewById(R.id.meetingSubject)
         val meetingTime: TextView = itemView.findViewById(R.id.meetingTime)
+        val meetingLocation: TextView = itemView.findViewById(R.id.meetingLocation)
         val startMeetingButton: ImageButton = itemView.findViewById(R.id.startMeetingButton)
         val startMeetingText: TextView = itemView.findViewById(R.id.startText)
     }
@@ -30,14 +32,13 @@ class CalendarRecyclerViewAdapter(private val parentFragment: CalendarFragment,
     }
 
     override fun onBindViewHolder(holder: CalendarMeetingsViewHolder, position: Int) {
-//        val fullName = meetingsData[position].firstName + " " + usersData[position].lastName
-
         val start = Calendar.getInstance()
         start.time = meetingsData[position].startTime
         val end = Calendar.getInstance()
         end.time = meetingsData[position].endTime
 
         holder.meetingSubejct.text = meetingsData[position].subject
+        holder.meetingLocation.text = meetingsData[position].location
         holder.meetingTime.text =
             start.get(Calendar.HOUR_OF_DAY).toString().padStart(2, '0') + ":" +
             start.get(Calendar.MINUTE).toString().padStart(2, '0') +
@@ -48,11 +49,12 @@ class CalendarRecyclerViewAdapter(private val parentFragment: CalendarFragment,
         val today = Calendar.getInstance()
         start.set(Calendar.MINUTE, start.get(Calendar.MINUTE) - 10)
 
-        if (today.after(start) && today.before(end)) {
+        holder.startMeetingButton.visibility = View.INVISIBLE
+        holder.startMeetingText.visibility = View.INVISIBLE
+
+        if (today.timeInMillis > start.timeInMillis && today.timeInMillis < end.timeInMillis) {
             holder.startMeetingButton.visibility = View.VISIBLE
             holder.startMeetingText.visibility = View.VISIBLE
-
-//            holder.startMeetingButton.setOnClickListener(startMeetinglistener)
             holder.startMeetingButton.setOnClickListener {
                 val builder = parentFragment.context?.let { it1 -> AlertDialog.Builder(it1) }
                 builder?.setTitle("Start Meeting?")

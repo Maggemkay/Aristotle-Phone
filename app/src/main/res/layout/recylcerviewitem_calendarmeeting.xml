@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/availableMeeting"
     android:layout_width="match_parent"
     android:layout_height="80dp"
@@ -17,14 +18,14 @@
         android:id="@+id/meetingTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="4dp"
         android:fontFamily="@font/roboto"
         android:text="@string/placeholer_meeting_time"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/meetingLocation" />
 
     <TextView
         android:id="@+id/meetingSubject"
@@ -38,6 +39,19 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/meetingLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="4dp"
+        android:text="Location"
+        android:fontFamily="@font/roboto"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/startMeetingButton"
@@ -66,6 +80,8 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
